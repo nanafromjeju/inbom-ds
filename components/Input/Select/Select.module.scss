@@ -1,0 +1,67 @@
+@use '../../../styles/theme.scss' as *;
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 30px;
+  top: 44%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.select {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  padding: 10px 55px 10px 20px;
+  border-radius: 10px;
+  background-color: $color-gray-100;
+  font-size: 18px;
+  color: #999;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 100%;
+
+  &:focus {
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid $color-primary;
+  }
+
+  option[value=''][disabled] {
+    color: $color-gray-600;
+  }
+
+  &:disabled {
+    background-color: $color-gray-300;
+    color: $color-white;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:invalid {
+    color: $color-gray-600;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .selectIcon {
+    right: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .select {
+    font-size: 13px;
+    padding: 10px 45px 10px 16px;
+    height: 45px;
+  }
+}

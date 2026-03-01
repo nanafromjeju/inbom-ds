@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+}
+
+.label {
+  border: 1px solid transparent;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #f4f5f6;
+  font-size: 18px;
+  color: #999999;
+  width: 100%;
+  cursor: pointer;
+}
+
+.buttonWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #f4f5f6;
+  font-size: 15px;
+  color: #999999;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.active {
+    border-color: #40e0d0;
+    background-color: #fff;
+    color: #40e0d0;
+    font-weight: 500;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+    font-size: 13px;
+    padding: 12px 15px;
+  }
+
+  .button {
+    font-size: 13px;
+    padding: 12px 15px;
+  }
+}

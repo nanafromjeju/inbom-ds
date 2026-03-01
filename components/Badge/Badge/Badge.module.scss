@@ -1,0 +1,36 @@
+.badge {
+  display: flex;
+  max-width: fit-content;
+  align-items: center;
+  padding: 4px 7px 3px 7px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 2px;
+  gap: 3px;
+
+  img {
+    width: 12px;
+    height: 12px;
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  p {
+    padding-top: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .badge {
+    font-size: 10px;
+    padding: 4px;
+
+    img {
+      margin-bottom: 0;
+    }
+
+    p {
+      padding-top: 0;
+    }
+  }
+}

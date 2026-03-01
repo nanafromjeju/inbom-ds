@@ -1,0 +1,204 @@
+@use '../../../styles/theme.scss' as *;
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.input {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  padding: 15px 30px 15px 50px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  font-size: 18px;
+  color: $color-gray-600;
+  width: 100%;
+  cursor: pointer;
+
+  &:focus {
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid $color-primary;
+  }
+
+  &::placeholder {
+    color: $color-gray-600;
+  }
+}
+
+.icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $color-gray-600;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+}
+
+.arrowLeft {
+  width: 20px;
+  height: 20px;
+  transform: rotate(90deg);
+}
+
+.arrowRight {
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+}
+
+.calendar {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background-color: $color-gray-200;
+  border-radius: 12px;
+  padding: 50px;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: $color-gray-700;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $color-gray-200;
+  }
+}
+
+.currentMonth {
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-gray-800;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekDay {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-gray-600;
+  padding: 8px 0;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: $color-gray-800;
+  position: relative;
+  height: 50px;
+
+  &:not(.empty):hover {
+    background-color: $color-gray-200;
+  }
+
+  &.empty {
+    cursor: default;
+  }
+
+  &.selected {
+    background-color: $color-primary;
+    color: white;
+    font-weight: 600;
+
+    &:hover {
+      background-color: $color-primary;
+    }
+  }
+
+  &.inRange {
+    background-color: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  &.today:not(.selected) {
+    border: 2px solid $color-primary;
+    font-weight: 600;
+  }
+
+  &.sunday:not(.selected):not(.inRange) {
+    color: #f80303;
+  }
+
+  &.saturday:not(.selected):not(.inRange) {
+    color: #40e0d0;
+  }
+}
+
+.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .input {
+    font-size: 13px;
+    padding: 10px 40px 10px 50px;
+    height: 45px;
+  }
+
+  .icon {
+    right: 12px;
+  }
+
+  .calendar {
+    min-width: 280px;
+    padding: 16px;
+  }
+
+  .currentMonth {
+    font-size: 14px;
+  }
+
+  .weekDay {
+    font-size: 11px;
+    padding: 6px 0;
+  }
+
+  .day {
+    font-size: 12px;
+  }
+}

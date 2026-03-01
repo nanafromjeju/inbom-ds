@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "framer-motion": "^12.34.3",
     "next": "16.1.6",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",

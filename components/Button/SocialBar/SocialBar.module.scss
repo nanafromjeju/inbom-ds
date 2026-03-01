@@ -1,0 +1,140 @@
+.socialBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 16px;
+  background-color: transparent;
+  width: 60px;
+  border-radius: 8px;
+}
+
+.actionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.editIconWrapper {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8ffff;
+  border: 1px solid #40e0d0;
+  border-radius: 50%;
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f5f6;
+  border-radius: 50%;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.count {
+  font-size: 15px;
+  color: #555555;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.label {
+  font-size: 15px;
+  color: #555555;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.editButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.editLabel {
+  font-size: 15px;
+  color: #40e0d0;
+  font-weight: 500;
+  line-height: 1;
+}
+
+@media screen and (max-width: 1340px) {
+  .socialBar {
+    gap: 25px;
+    padding: 15px 12px;
+    width: 50px;
+  }
+  .iconWrapper,
+  .editIconWrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .count,
+  .label,
+  .editLabel {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .socialBar {
+    width: 100%;
+    padding: 10px 0;
+    gap: 20px;
+  }
+  .iconWrapper,
+  .editIconWrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .count,
+  .label,
+  .editLabel {
+    font-size: 13px;
+  }
+}
