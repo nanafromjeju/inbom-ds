@@ -1,5 +1,3 @@
-@use '../../../styles/theme.scss' as *;
-
 .button {
   width: 100%;
   height: 50px;
@@ -15,8 +13,8 @@
   transition: all 0.3s ease;
   white-space: nowrap;
   font-weight: 600;
-  background-color: $color-primary;
-  color: $color-white;
+  background-color: #40e0d0;
+  color: #ffffff;
 
   &:focus,
   &:active {
@@ -30,8 +28,8 @@
   }
 
   &:disabled {
-    background-color: $color-gray-300;
-    color: $color-white;
+    background-color: #e9e9e9;
+    color: #ffffff;
     cursor: not-allowed;
     pointer-events: none;
   }

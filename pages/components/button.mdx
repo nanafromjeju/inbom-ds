@@ -1,0 +1,213 @@
+import Button from '@/components/Button/Button';
+import SocialButton from '@/components/Button/SocialButton';
+import Switch from '@/components/Button/Switch';
+import SocialBar from '@/components/Button/SocialBar';
+
+# Button
+
+클릭 가능한 모든 인터랙션에 사용하는 핵심 컴포넌트예요.
+인봄 플랫폼에서 다양한 맥락에 맞게 확장할 수 있도록 설계했어요.
+
+---
+
+## Button
+
+가장 기본이 되는 버튼이에요. `width: 100%`로 설계해서
+폼이나 CTA 영역에서 일관된 레이아웃을 유지해요.
+
+<Button>기본 버튼</Button>
+```tsx
+<Button>기본 버튼</Button>
+```
+
+비활성화 상태는 `disabled` prop으로 제어해요.
+포인터 이벤트를 막아서 실수로 클릭되는 걸 방지해요.
+
+<Button disabled>비활성화</Button>
+```tsx
+<Button disabled>비활성화</Button>
+```
+
+---
+
+## SocialButton
+
+소셜 로그인에 사용하는 버튼이에요.
+`backgroundColor`, `textColor`, `border`를 props로 받아서
+각 플랫폼 브랜드 컬러를 그대로 적용할 수 있어요.
+
+<SocialButton
+  icon="/icons/kakao-icon.svg"
+  title="카카오로 시작하기"
+  backgroundColor="#FAE100"
+  textColor="#3C1E1E"
+/>
+<SocialButton
+  icon="/icons/naver-icon.svg"
+  title="네이버로 시작하기"
+  backgroundColor="#00C300"
+  textColor="#ffffff"
+/>
+<SocialButton
+  icon="/icons/google-icon.svg"
+  title="구글로 시작하기"
+  backgroundColor="#F4F5F6"
+  textColor="#222222"
+/>
+<SocialButton
+  icon="/icons/email-icon.svg"
+  title="이메일로 시작하기"
+  backgroundColor="#fff"
+  textColor="#40E0D0"
+  border="1px solid #40E0D0"
+/>
+```tsx // 카카오
+<SocialButton
+  icon="/icons/kakao-icon.svg"
+  title="카카오로 시작하기"
+  backgroundColor="#FAE100"
+  textColor="#3C1E1E"
+/>
+
+// 네이버
+
+<SocialButton
+  icon="/icons/naver-icon.svg"
+  title="네이버로 시작하기"
+  backgroundColor="#00C300"
+  textColor="#ffffff"
+/>
+
+// 구글
+
+<SocialButton
+  icon="/icons/google-icon.svg"
+  title="구글로 시작하기"
+  backgroundColor="#F4F5F6"
+  textColor="#222222"
+/>
+
+// 이메일
+
+<SocialButton
+  icon="/icons/email-icon.svg"
+  title="이메일로 시작하기"
+  backgroundColor="#fff"
+  textColor="#40E0D0"
+  border="1px solid #40E0D0"
+/>
+```
+
+---
+
+## Switch
+
+두 가지 옵션을 전환할 때 사용해요.
+인봄에서는 요금제 월간/연간 전환에 사용했어요.
+`value`로 현재 선택값을 제어하는 controlled 컴포넌트예요.
+
+<Switch
+  leftLabel="월간"
+  rightLabel="연간"
+  leftValue="M"
+  rightValue="Y"
+  value="M"
+  onChange={(v) => console.log(v)}
+/>
+```tsx
+<Switch
+  leftLabel="월간"
+  rightLabel="연간"
+  leftValue="M"
+  rightValue="Y"
+  value="M"
+  onChange={(v) => console.log(v)}
+/>
+```
+
+---
+
+## SocialBar
+
+게시물에 붙는 북마크, 좋아요, 공유 액션 모음이에요.
+`isBookmarked`, `isLiked`로 초기 상태를 받고
+내부에서 토글 상태를 관리해요.
+수정/삭제 버튼은 `hasEditButton`, `hasDeleteButton`으로 조건부 노출해요.
+
+<SocialBar
+  bookmarkCount={10}
+  likeCount={5}
+  isBookmarked={false}
+  isLiked={false}
+/>
+```tsx // 기본
+<SocialBar
+  bookmarkCount={10}
+  likeCount={5}
+  isBookmarked={false}
+  isLiked={false}
+/>
+
+// 수정/삭제 버튼 포함 (작성자 본인일 때)
+
+<SocialBar
+  bookmarkCount={10}
+  likeCount={5}
+  isBookmarked={true}
+  isLiked={true}
+  hasEditButton={true}
+  hasDeleteButton={true}
+  onEditClick={() => console.log('수정')}
+  onDeleteClick={() => console.log('삭제')}
+/>
+```
+
+---
+
+## Props
+
+### Button
+
+| Prop        | Type                        | Default  | Description   |
+| ----------- | --------------------------- | -------- | ------------- |
+| `children`  | `ReactNode`                 | -        | 버튼 텍스트   |
+| `onClick`   | `() => void`                | -        | 클릭 핸들러   |
+| `disabled`  | `boolean`                   | `false`  | 비활성화 여부 |
+| `type`      | `button \| submit \| reset` | `button` | 버튼 타입     |
+| `className` | `string`                    | -        | 추가 클래스명 |
+
+### SocialButton
+
+| Prop              | Type         | Default | Description   |
+| ----------------- | ------------ | ------- | ------------- |
+| `icon`            | `string`     | -       | 아이콘 경로   |
+| `title`           | `string`     | -       | 버튼 텍스트   |
+| `backgroundColor` | `string`     | -       | 배경색        |
+| `textColor`       | `string`     | -       | 텍스트 색상   |
+| `border`          | `string`     | -       | 테두리 스타일 |
+| `onClick`         | `() => void` | -       | 클릭 핸들러   |
+
+### Switch
+
+| Prop         | Type                      | Default  | Description   |
+| ------------ | ------------------------- | -------- | ------------- |
+| `leftLabel`  | `string`                  | `'월간'` | 왼쪽 라벨     |
+| `rightLabel` | `string`                  | `'연간'` | 오른쪽 라벨   |
+| `leftValue`  | `string`                  | `'M'`    | 왼쪽 값       |
+| `rightValue` | `string`                  | `'Y'`    | 오른쪽 값     |
+| `value`      | `string`                  | -        | 현재 선택값   |
+| `onChange`   | `(value: string) => void` | -        | 변경 핸들러   |
+| `disabled`   | `boolean`                 | `false`  | 비활성화 여부 |
+
+### SocialBar
+
+| Prop              | Type         | Default | Description         |
+| ----------------- | ------------ | ------- | ------------------- |
+| `bookmarkCount`   | `number`     | `0`     | 북마크 수           |
+| `likeCount`       | `number`     | `0`     | 좋아요 수           |
+| `isBookmarked`    | `boolean`    | `false` | 북마크 여부         |
+| `isLiked`         | `boolean`    | `false` | 좋아요 여부         |
+| `hasEditButton`   | `boolean`    | `false` | 수정 버튼 노출 여부 |
+| `hasDeleteButton` | `boolean`    | `false` | 삭제 버튼 노출 여부 |
+| `onEditClick`     | `() => void` | -       | 수정 클릭 핸들러    |
+| `onDeleteClick`   | `() => void` | -       | 삭제 클릭 핸들러    |
