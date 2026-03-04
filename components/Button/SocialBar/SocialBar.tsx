@@ -89,7 +89,7 @@ const SocialBar = ({
         <span className={styles.iconWrapper}>
           <img className={styles.icon} src="/icons/share.svg" alt="share" />
         </span>
-        <span className={styles.label}>공유하기</span>
+        <span className={styles.label}>Share</span>
       </button>
 
       {hasEditButton && (
@@ -105,7 +105,7 @@ const SocialBar = ({
               alt="edit"
             />
           </span>
-          <span className={styles.editLabel}>수정</span>
+          <span className={styles.editLabel}>Edit</span>
         </button>
       )}
       {hasDeleteButton && (
@@ -121,7 +121,7 @@ const SocialBar = ({
               alt="delete"
             />
           </span>
-          <span className={styles.editLabel}>삭제</span>
+          <span className={styles.editLabel}>Delete</span>
         </button>
       )}
     </div>

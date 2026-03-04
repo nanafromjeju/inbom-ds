@@ -1,14 +1,19 @@
 # Design Tokens
 
-인봄 플랫폼 개발을 시작하기 전, 디자이너와 함께 색상·타이포그래피·간격을 먼저 정의했어요. <br /> <br />
-어떤 색이 어떤 상황에 쓰일지 미리 합의해두지 않으면, 개발하면서 피그마와 코드 사이에 미묘한 불일치가 생기거든요. 비슷해 보이는 회색이 컴포넌트마다 조금씩 다른 값을 쓰거나, 에러 색상이 페이지마다 달라지는 식으로요. <br /> <br />
-그래서 모든 값을 CSS 변수로 중앙에서 관리하는 구조를 잡았어요. 덕분에 디자이너가 색상을 수정하거나, 개발 중에 피그마와 불일치가 발견되더라도 토큰 하나만 바꾸면 전체에 반영됐어요.
+인봄 플랫폼 개발을 시작하기 전,<br /> 디자이너와 함께 색상·타이포그래피·간격을 먼저 정의했어요.
+
+어떤 색이 어떤 상황에 쓰일지 미리 합의해두지 않으면, <br /> 개발하면서 **피그마와 코드 사이에 미묘한 불일치**가 생기거든요. <br />
+비슷해 보이는 회색이 컴포넌트마다 조금씩 다른 값을 쓰거나,<br /> 에러 색상이 페이지마다 달라지는 식으로요. <br />
+
+그래서 모든 값을 <span style={{ color: '#40E0D0' }}>CSS 변수로 중앙에서 관리</span>하는 구조를 잡았어요. <br /> 덕분에 디자이너가 색상을 수정하거나, 개발 중에 피그마와 <br /> 불일치가 발견되더라도 토큰 하나만 바꾸면 전체에 반영됐어요.
 
 ## Colors
 
 ### Brand
 
 인봄의 메인 컬러예요. 터콰이즈 계열로, 인테리어의 청량하고 신선한 느낌을 담았어요.
+
+<br />
 
 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
   {[
@@ -39,6 +44,8 @@
 ### Neutral
 
 텍스트, 배경, 구분선 등 인터페이스 전반에 사용하는 회색 팔레트예요.
+
+<br />
 
 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
   {[
@@ -74,8 +81,10 @@
 
 ### Status
 
-성공, 오류 상태를 나타낼 때 사용해요.
+성공, 오류 상태를 나타낼 때 사용해요. <br />
 Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
+
+<br />
 
 <div style={{ display: 'flex', gap: '12px' }}>
   {[
@@ -105,8 +114,10 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 ### Font Family
 
-한국어는 Pretendard, 영문은 Poppins를 사용해요.
+한국어는 Pretendard, 영문은 Poppins를 사용해요. <br />
 두 폰트 모두 로컬에서 불러와서 네트워크 환경과 관계없이 안정적으로 렌더링돼요.
+
+<br />
 
 <div
   style={{
@@ -138,6 +149,8 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 </div>
 
 ### Font Size
+
+<br />
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
   {[
@@ -187,6 +200,8 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 ### Font Weight
 
+<br />
+
 <div
   style={{
     display: 'flex',
@@ -220,6 +235,8 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 4px를 기본 단위로 사용해요.
 모든 컴포넌트의 padding, margin, gap은 이 토큰으로 통일했어요.
+
+<br />
 
 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
   {[
@@ -273,6 +290,8 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 ## Border Radius
 
+<br />
+
 <div
   style={{
     display: 'flex',
@@ -315,6 +334,8 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 ## Shadow
 
+<br />
+
 <div
   style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', padding: '32px 0' }}
 >
@@ -348,7 +369,7 @@ Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
 
 ## Z-index
 
-레이어 우선순위를 토큰으로 관리해요.
+레이어 우선순위를 토큰으로 관리해요. <br />
 dropdown이 modal 위에 뜨는 실수를 방지하기 위해 명시적으로 값을 정의했어요.
 
 | Token          | Value | 사용처              |

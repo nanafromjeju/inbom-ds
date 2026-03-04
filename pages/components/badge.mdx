@@ -5,8 +5,8 @@ import BadgeGroup from '@/components/Badge/BadgeGroup';
 
 <FadeIn>
   인봄에서 인테리어 업체의 특성을 한눈에 보여줄 방법이 필요했어요. <br />
-  텍스트만으로는 '인기 업체인지', '전문 자격이 있는지' 빠르게 파악하기
-  어려웠거든요. <br />
+  텍스트만으로는 '인기 업체'인지, '전문 업체'인지 빠르게 파악하기 어려웠거든요.{' '}
+  <br />
   그래서 아이콘과 텍스트를 묶어서 시각적으로 바로 인식할 수 있는 Badge를
   만들었어요.
 </FadeIn>
@@ -23,45 +23,45 @@ import BadgeGroup from '@/components/Badge/BadgeGroup';
 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
   <Badge
     icon="/icons/star.svg"
-    title="인기"
+    title="Popular"
     backgroundColor="#222"
     color="#fff"
   />
   <Badge
     icon="/icons/checked-primary.svg"
-    title="전문건설업"
+    title="Certified"
     backgroundColor="#fff"
     color="#40E0D0"
   />
   <Badge
     icon="/icons/checked-white.svg"
-    title="책임보장"
+    title="Guaranteed"
     backgroundColor="#40E0D0"
     color="#fff"
   />
 </div>
-```tsx // 인기 뱃지
+
+```tsx
+// 인기 뱃지
 <Badge
   icon="/icons/star.svg"
-  title="인기"
+    title="Popular"
   backgroundColor="#222"
   color="#fff"
 />
 
 // 전문건설업 뱃지
-
 <Badge
   icon="/icons/checked-primary.svg"
-  title="전문건설업"
+    title="Certified"
   backgroundColor="#fff"
   color="#40E0D0"
 />
 
 // 책임보장 뱃지
-
 <Badge
   icon="/icons/checked-white.svg"
-  title="책임보장"
+    title="Guaranteed"
   backgroundColor="#40E0D0"
   color="#fff"
 />
@@ -82,19 +82,19 @@ BadgeGroup은 배열로 받아서 일관된 간격으로 나열해줘요. <br />
   badges={[
     {
       icon: '/icons/star.svg',
-      title: '인기',
+      title: 'Popular',
       backgroundColor: '#222',
       color: '#fff',
     },
     {
       icon: '/icons/checked-primary.svg',
-      title: '전문건설업',
+      title: 'Certified',
       backgroundColor: '#fff',
       color: '#40E0D0',
     },
     {
       icon: '/icons/checked-white.svg',
-      title: '책임보장',
+      title: 'Guaranteed',
       backgroundColor: '#40E0D0',
       color: '#fff',
     },
@@ -107,13 +107,13 @@ BadgeGroup은 배열로 받아서 일관된 간격으로 나열해줘요. <br />
   badges={[
     {
       icon: '/icons/star.svg',
-      title: '인기',
+      title: 'Popular',
       backgroundColor: '#222',
       color: '#fff',
     },
     {
       icon: '/icons/checked-white.svg',
-      title: '책임보장',
+      title: 'Guaranteed',
       backgroundColor: '#40E0D0',
       color: '#fff',
     },
@@ -126,7 +126,7 @@ BadgeGroup은 배열로 받아서 일관된 간격으로 나열해줘요. <br />
   badges={[
     {
       icon: '/icons/star.svg',
-      title: '인기',
+      title: 'Popular',
       backgroundColor: '#222',
       color: '#fff',
     },
@@ -141,19 +141,19 @@ BadgeGroup은 배열로 받아서 일관된 간격으로 나열해줘요. <br />
   badges={[
     {
       icon: '/icons/star.svg',
-      title: '인기',
+      title: 'Popular',
       backgroundColor: '#222',
       color: '#fff',
     },
     {
       icon: '/icons/checked-primary.svg',
-      title: '전문건설업',
+      title: 'Certified',
       backgroundColor: '#fff',
       color: '#40E0D0',
     },
     {
       icon: '/icons/checked-white.svg',
-      title: '책임보장',
+      title: 'Guaranteed',
       backgroundColor: '#40E0D0',
       color: '#fff',
     },

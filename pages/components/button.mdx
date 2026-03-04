@@ -5,6 +5,8 @@ import SocialBar from '@/components/Button/SocialBar';
 
 # Button
 
+<br />
+
 <FadeIn>
   인봄에서 사용자의 행동을 유도하는 모든 곳에 Button 컴포넌트를 사용했어요.{' '}
 
@@ -17,12 +19,20 @@ import SocialBar from '@/components/Button/SocialBar';
 
 ## Button
 
+<br />
+
 <FadeIn>
 가장 기본이 되는 버튼이에요.
 
 `width: 100%`로 설계한 건 이유가 있었어요. <br />
 의도적으로 `width: 100%`를 고정하고 패딩으로 내부 여백을 조절해서 완벽한 반응형을 설계했어요. <br />
 특정 px 값이 필요한 경우엔 `div` 태그로 감싸고 `~Wrapper`로 네이밍한 뒤 `max-width`로 너비를 제어했어요.
+
+버튼은 상황에 따라 4가지로 구분해서 사용했어요. <br />
+**Primary Button**은 폼 제출처럼 가장 중요한 주요 액션에, <br />
+**Outline Button**은 인증이나 반드시 클릭이 필요한 상황에, <br />
+**Secondary Button**은 이전으로 돌아가거나 취소처럼 무게감을 낮춰야 할 때, <br />
+**Disabled Button**은 액션이 불가능한 상태를 나타낼 때 사용했어요.
 
 </FadeIn>
 <br />
@@ -34,21 +44,37 @@ import SocialBar from '@/components/Button/SocialBar';
     maxWidth: '320px',
   }}
 >
-  <Button>기본 버튼</Button>
-  <Button disabled>비활성화 버튼</Button>
+  <Button>Primary</Button>
+          <Button
+          style={{
+            background: '#fff',
+            color: '#40E0D0',
+            border: '1px solid #40E0D0',
+          }}
+        >
+         Outline
+        </Button>
+                <Button
+          style={{
+            background: '#FAFAFA',
+            color: '#999999',
+          }}
+        >
+        Secondary
+        </Button>
+  <Button disabled>Disabled</Button>
 </div>
-```tsx
-<Button>기본 버튼</Button>
 
-<Button disabled>비활성화 버튼</Button>
+```tsx
+<Button>Primary</Button>
+
+<Button disabled>Disabled</Button>
 ```
 
 비활성화 상태는 `disabled` prop 하나로 제어해요. <br />
 `pointer-events: none`을 함께 적용해서 실수로 클릭되는 상황도 막았어요. <br />
 단순히 보여주기용 disabled가 아니라, 실제로 이벤트가 차단돼야 했거든요. <br />
 또한 `className` prop을 외부에서 받을 수 있도록 설계해서, 색상이나 스타일 커스텀이 자유롭게 가능해요.
-
----
 
 ## SocialButton
 
@@ -71,65 +97,65 @@ import SocialBar from '@/components/Button/SocialBar';
 >
   <SocialButton
     icon="/icons/kakao-icon.svg"
-    title="카카오로 시작하기"
+    title="Kakao"
     backgroundColor="#FAE100"
     textColor="#3C1E1E"
   />
   <SocialButton
     icon="/icons/naver-icon.svg"
-    title="네이버로 시작하기"
+    title="Naver"
     backgroundColor="#00C300"
     textColor="#ffffff"
   />
   <SocialButton
     icon="/icons/google-icon.svg"
-    title="구글로 시작하기"
+    title="Google"
     backgroundColor="#F4F5F6"
     textColor="#222222"
   />
   <SocialButton
     icon="/icons/email-icon.svg"
-    title="이메일로 시작하기"
+    title="Email"
     backgroundColor="#fff"
     textColor="#40E0D0"
     border="1px solid #40E0D0"
   />
 </div>
-```tsx // 카카오
-<SocialButton
-  icon="/icons/kakao-icon.svg"
-  title="카카오로 시작하기"
-  backgroundColor="#FAE100"
-  textColor="#3C1E1E"
-/>
 
-// 네이버
+```tsx
+    // Kakao
+    <SocialButton
+     icon="/icons/kakao-icon.svg"
+     title="Kakao"
+     backgroundColor="#FAE100"
+     textColor="#3C1E1E"
+    />
 
-<SocialButton
-  icon="/icons/naver-icon.svg"
-  title="네이버로 시작하기"
-  backgroundColor="#00C300"
-  textColor="#ffffff"
-/>
+    // Naver
+    <SocialButton
+      icon="/icons/naver-icon.svg"
+      title="Naver"
+      backgroundColor="#00C300"
+      textColor="#ffffff"
+    />
 
-// 구글
+    // Google
+    <SocialButton
+      icon="/icons/google-icon.svg"
+      title="Google"
+      backgroundColor="#F4F5F6"
+      textColor="#222222"
+    />
 
-<SocialButton
-  icon="/icons/google-icon.svg"
-  title="구글로 시작하기"
-  backgroundColor="#F4F5F6"
-  textColor="#222222"
-/>
+    // Email
+    <SocialButton
+      icon="/icons/email-icon.svg"
+      title="Email"
+      backgroundColor="#fff"
+      textColor="#40E0D0"
+      border="1px solid #40E0D0"
+    />
 
-// 이메일
-
-<SocialButton
-  icon="/icons/email-icon.svg"
-  title="이메일로 시작하기"
-  backgroundColor="#fff"
-  textColor="#40E0D0"
-  border="1px solid #40E0D0"
-/>
 ```
 
 ## Switch
@@ -144,8 +170,8 @@ import SocialBar from '@/components/Button/SocialBar';
 <br />
 
 <Switch
-  leftLabel="월간"
-  rightLabel="연간"
+  leftLabel="Monthly"
+  rightLabel="Yearly"
   leftValue="M"
   rightValue="Y"
   value="M"
@@ -154,8 +180,8 @@ import SocialBar from '@/components/Button/SocialBar';
 
 ```tsx
 <Switch
-  leftLabel="월간"
-  rightLabel="연간"
+  leftLabel="Monthly"
+  rightLabel="Yearly"
   leftValue="M"
   rightValue="Y"
   value="M"
@@ -201,10 +227,9 @@ import SocialBar from '@/components/Button/SocialBar';
     </div>
   </div>
 </div>
+
 ```tsx
-
 // 기본
-
 <SocialBar
   bookmarkCount={10}
   likeCount={5}
@@ -213,7 +238,6 @@ import SocialBar from '@/components/Button/SocialBar';
 />
 
 // 수정/삭제 버튼 포함
-
 <SocialBar
   bookmarkCount={10}
   likeCount={5}

@@ -9,16 +9,23 @@ import Button from '@/components/Button/Button';
 
 # Modal
 
-인봄에서 사용자에게 추가 정보를 보여주거나 확인을 받아야 할 때 사용하는 컴포넌트 모음이에요. <br />
-각각의 상황에 맞게 4가지로 분리해서 관리했어요.
+<FadeIn>
+  인봄에서 사용자에게 추가 정보를 보여주거나 확인을 받아야 할 때 사용하는
+  컴포넌트 모음이에요. <br />
+  각각의 상황에 맞게 4가지로 분리해서 관리했어요.
+</FadeIn>
 
 ## Modal
 
+<FadeIn>
 가장 기본이 되는 모달이에요.
 
 `isOpen`과 `onClose`만 받고, 내부 콘텐츠는 `children`으로 주입받아요. <br />
 어떤 내용이든 담을 수 있도록 의도적으로 비워둔 구조예요. <br />
 오버레이 클릭 시 닫히고, 모달 내부 클릭은 `e.stopPropagation()`으로 이벤트 전파를 막았어요.
+
+</FadeIn>
+<br />
 
 export const ModalDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +36,7 @@ export const ModalDemo = () => {
           maxWidth: '360px',
         }}
       >
-        <Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+        <Button onClick={() => setIsOpen(true)}>Click</Button>
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div style={{ padding: '32px', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -80,6 +87,8 @@ export const ModalDemo = () => {
 `confirmText`, `cancelText`를 props로 분리해서 <br />
 "저장/취소", "삭제/취소" 등 상황에 맞는 텍스트로 바꿀 수 있어요.
 
+<br />
+
 export const ConfirmDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -89,7 +98,15 @@ export const ConfirmDemo = () => {
           maxWidth: '360px',
         }}
       >
-        <Button onClick={() => setIsOpen(true)}>삭제하기</Button>
+        <Button
+          onClick={() => setIsOpen(true)}
+          style={{
+            background: '#FAFAFA',
+            color: '#999999',
+          }}
+        >
+          Confirm
+        </Button>
       </div>
       <ConfirmModal
         isOpen={isOpen}
@@ -113,7 +130,6 @@ export const ConfirmDemo = () => {
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
   onConfirm={() => {
-    // 삭제 로직 실행
     setIsOpen(false);
   }}
   message="정말로 삭제하시겠습니까?"
@@ -131,6 +147,8 @@ export const ConfirmDemo = () => {
 `type`으로 `success`와 `error` 두 가지 상태를 지원하고, <br />
 각각 다른 아이콘과 색상으로 구분돼요.
 
+<br />
+
 export const NotificationDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('success');
@@ -142,15 +160,19 @@ export const NotificationDemo = () => {
           setIsOpen(true);
         }}
       >
-        성공 알림
+        Success
       </Button>
       <Button
+        style={{
+          background: '#FF6969',
+          color: '#fff',
+        }}
         onClick={() => {
           setType('error');
           setIsOpen(true);
         }}
       >
-        오류 알림
+        Alert
       </Button>
       <Notification
         isOpen={isOpen}
@@ -165,7 +187,9 @@ export const NotificationDemo = () => {
 };
 
 <NotificationDemo />
-```tsx // 성공
+
+```tsx
+// 성공
 <Notification
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
@@ -174,7 +198,6 @@ export const NotificationDemo = () => {
 />
 
 // 오류
-
 <Notification
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
@@ -192,6 +215,8 @@ export const NotificationDemo = () => {
 열려있는 동안 `body` 스크롤을 막아서 뒤 콘텐츠가 스크롤되는 걸 방지했어요. <br />
 컴포넌트가 언마운트될 때 스크롤이 반드시 복구되도록 cleanup 함수도 넣었어요.
 
+<br />
+
 export const BottomSheetDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -201,7 +226,16 @@ export const BottomSheetDemo = () => {
           maxWidth: '360px',
         }}
       >
-        <Button onClick={() => setIsOpen(true)}>바텀시트 열기</Button>
+        <Button
+          onClick={() => setIsOpen(true)}
+          style={{
+            background: '#fff',
+            color: '#40E0D0',
+            border: '1px solid #40E0D0',
+          }}
+        >
+          Click
+        </Button>
       </div>
       <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <h3

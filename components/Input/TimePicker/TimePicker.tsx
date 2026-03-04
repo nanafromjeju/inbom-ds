@@ -10,7 +10,7 @@ const TimePicker = ({ onChange, value }: TimePickerProps) => {
   const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
 
   const timeSlots = [
-    { id: 'anytime', label: '아무때나 좋아요' },
+    { id: 'anytime', label: 'Anytime' },
     { id: '10-12', label: '10:00 - 12:00' },
     { id: '13-15', label: '13:00 - 15:00' },
     { id: '15-17', label: '15:00 - 17:00' },
@@ -47,7 +47,7 @@ const TimePicker = ({ onChange, value }: TimePickerProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.label}>불가능한 시간대를 선택해주세요</div>
+      <div className={styles.label}>Select unavailable time</div>
       <div className={styles.buttonWrapper}>
         {timeSlots.map((slot) => (
           <button

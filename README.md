@@ -1,8 +1,10 @@
 # Inbom Design System
 
-인테리어 견적 플랫폼 인봄의 디자인 시스템 문서 사이트입니다.
+![Inbom Design System](public/images/main.png)
 
-🔗 [문서 보러가기](https://ids-chi.vercel.app/)
+🔗 [사이트 바로가기](https://ids-chi.vercel.app/)
+
+인테리어 견적 플랫폼 인봄의 디자인 시스템 문서 사이트입니다.
 
 ## 기술 스택
 
