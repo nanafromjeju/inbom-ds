@@ -5,62 +5,86 @@ import SocialBar from '@/components/Button/SocialBar';
 
 # Button
 
-클릭 가능한 모든 인터랙션에 사용하는 핵심 컴포넌트예요.
-인봄 플랫폼에서 다양한 맥락에 맞게 확장할 수 있도록 설계했어요.
+인봄에서 사용자의 행동을 유도하는 모든 곳에 Button 컴포넌트를 사용했어요.
+로그인, 견적 신청, 폼 제출까지 — 클릭 가능한 인터랙션이라면 이 컴포넌트가 기반이 돼요.
+처음엔 단순하게 시작했지만, 플랫폼이 커지면서 다양한 상황에 대응할 수 있도록 확장해왔어요.
 
 ---
 
 ## Button
 
-가장 기본이 되는 버튼이에요. `width: 100%`로 설계해서
-폼이나 CTA 영역에서 일관된 레이아웃을 유지해요.
+가장 기본이 되는 버튼이에요.
 
-<Button>기본 버튼</Button>
+`width: 100%`로 설계한 건 이유가 있었어요.
+인봄에서 버튼이 들어가는 영역은 대부분 폼이나 CTA 구역이었는데,
+부모 컨테이너 너비에 맞게 늘어나야 레이아웃이 일관되게 유지됐거든요.
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    maxWidth: '320px',
+  }}
+>
+  <Button>기본 버튼</Button>
+  <Button disabled>비활성화 버튼</Button>
+</div>
 ```tsx
 <Button>기본 버튼</Button>
+
+<Button disabled>비활성화 버튼</Button>
 ```
 
-비활성화 상태는 `disabled` prop으로 제어해요.
-포인터 이벤트를 막아서 실수로 클릭되는 걸 방지해요.
-
-<Button disabled>비활성화</Button>
-```tsx
-<Button disabled>비활성화</Button>
-```
+비활성화 상태는 `disabled` prop 하나로 제어해요.
+`pointer-events: none`을 함께 적용해서 실수로 클릭되는 상황도 막았어요.
+단순히 보여주기용 disabled가 아니라, 실제로 이벤트가 차단돼야 했거든요.
 
 ---
 
 ## SocialButton
 
-소셜 로그인에 사용하는 버튼이에요.
-`backgroundColor`, `textColor`, `border`를 props로 받아서
-각 플랫폼 브랜드 컬러를 그대로 적용할 수 있어요.
+소셜 로그인 버튼이에요.
 
-<SocialButton
-  icon="/icons/kakao-icon.svg"
-  title="카카오로 시작하기"
-  backgroundColor="#FAE100"
-  textColor="#3C1E1E"
-/>
-<SocialButton
-  icon="/icons/naver-icon.svg"
-  title="네이버로 시작하기"
-  backgroundColor="#00C300"
-  textColor="#ffffff"
-/>
-<SocialButton
-  icon="/icons/google-icon.svg"
-  title="구글로 시작하기"
-  backgroundColor="#F4F5F6"
-  textColor="#222222"
-/>
-<SocialButton
-  icon="/icons/email-icon.svg"
-  title="이메일로 시작하기"
-  backgroundColor="#fff"
-  textColor="#40E0D0"
-  border="1px solid #40E0D0"
-/>
+카카오, 네이버, 구글, 이메일 — 각 플랫폼마다 브랜드 가이드라인이 달라요.
+`backgroundColor`, `textColor`, `border`를 props로 분리한 건
+각 플랫폼 컬러를 외부에서 주입할 수 있도록 하기 위해서였어요.
+컴포넌트 내부를 건드리지 않고도 어떤 소셜 버튼이든 만들 수 있죠.
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    maxWidth: '320px',
+  }}
+>
+  <SocialButton
+    icon="/icons/kakao-icon.svg"
+    title="카카오로 시작하기"
+    backgroundColor="#FAE100"
+    textColor="#3C1E1E"
+  />
+  <SocialButton
+    icon="/icons/naver-icon.svg"
+    title="네이버로 시작하기"
+    backgroundColor="#00C300"
+    textColor="#ffffff"
+  />
+  <SocialButton
+    icon="/icons/google-icon.svg"
+    title="구글로 시작하기"
+    backgroundColor="#F4F5F6"
+    textColor="#222222"
+  />
+  <SocialButton
+    icon="/icons/email-icon.svg"
+    title="이메일로 시작하기"
+    backgroundColor="#fff"
+    textColor="#40E0D0"
+    border="1px solid #40E0D0"
+  />
+</div>
 ```tsx // 카카오
 <SocialButton
   icon="/icons/kakao-icon.svg"
@@ -87,7 +111,7 @@ import SocialBar from '@/components/Button/SocialBar';
   textColor="#222222"
 />
 
-// 이메일
+// 이메일 (테두리 있는 케이스)
 
 <SocialButton
   icon="/icons/email-icon.svg"
@@ -102,9 +126,12 @@ import SocialBar from '@/components/Button/SocialBar';
 
 ## Switch
 
-두 가지 옵션을 전환할 때 사용해요.
-인봄에서는 요금제 월간/연간 전환에 사용했어요.
-`value`로 현재 선택값을 제어하는 controlled 컴포넌트예요.
+두 가지 옵션을 토글하는 컴포넌트예요.
+
+인봄에서는 요금제 페이지의 월간/연간 전환에 사용했어요.
+`value`를 외부에서 받아서 제어하는 **controlled 컴포넌트**로 설계했어요.
+내부에서 상태를 직접 관리하지 않고 부모가 `onChange`로 값을 받아 처리하도록 한 거예요.
+그래야 어떤 맥락에서든 예측 가능하게 동작하거든요.
 
 <Switch
   leftLabel="월간"
@@ -125,21 +152,45 @@ import SocialBar from '@/components/Button/SocialBar';
 />
 ```
 
+`leftLabel`, `rightLabel`을 props로 분리했기 때문에
+월간/연간 외에도 어떤 텍스트 조합이든 재사용할 수 있어요.
+
 ---
 
 ## SocialBar
 
-게시물에 붙는 북마크, 좋아요, 공유 액션 모음이에요.
-`isBookmarked`, `isLiked`로 초기 상태를 받고
-내부에서 토글 상태를 관리해요.
-수정/삭제 버튼은 `hasEditButton`, `hasDeleteButton`으로 조건부 노출해요.
+게시물에 붙는 액션 버튼 모음이에요.
 
-<SocialBar
-  bookmarkCount={10}
-  likeCount={5}
-  isBookmarked={false}
-  isLiked={false}
-/>
+인봄에서는 커뮤니티 게시글과 업체 포트폴리오 상세 페이지에서 사용했어요.
+북마크, 좋아요, 공유는 항상 노출되고,
+수정/삭제는 작성자 본인일 때만 보여야 했어요.
+그래서 `hasEditButton`, `hasDeleteButton`으로 조건부 렌더링을 외부에서 제어할 수 있도록 했죠.
+
+`isBookmarked`, `isLiked`는 초기값으로 받고,
+실제 토글 상태는 컴포넌트 내부에서 `useState`로 관리해요.
+서버에서 현재 상태를 받아서 보여주되, 이후 인터랙션은 빠르게 반응하도록 한 거예요.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+  <div>
+    <p style={{ fontSize: '13px', color: '#999', marginBottom: '8px' }}>기본</p>
+    <SocialBar
+      bookmarkCount={10}
+      likeCount={5}
+      isBookmarked={false}
+      isLiked={false}
+    />
+  </div>
+  <div>
+    <SocialBar
+      bookmarkCount={10}
+      likeCount={5}
+      isBookmarked={true}
+      isLiked={true}
+      hasEditButton={true}
+      hasDeleteButton={true}
+    />
+  </div>
+</div>
 ```tsx // 기본
 <SocialBar
   bookmarkCount={10}
@@ -178,14 +229,14 @@ import SocialBar from '@/components/Button/SocialBar';
 
 ### SocialButton
 
-| Prop              | Type         | Default | Description   |
-| ----------------- | ------------ | ------- | ------------- |
-| `icon`            | `string`     | -       | 아이콘 경로   |
-| `title`           | `string`     | -       | 버튼 텍스트   |
-| `backgroundColor` | `string`     | -       | 배경색        |
-| `textColor`       | `string`     | -       | 텍스트 색상   |
-| `border`          | `string`     | -       | 테두리 스타일 |
-| `onClick`         | `() => void` | -       | 클릭 핸들러   |
+| Prop              | Type         | Default | Description        |
+| ----------------- | ------------ | ------- | ------------------ |
+| `icon`            | `string`     | -       | 아이콘 이미지 경로 |
+| `title`           | `string`     | -       | 버튼 텍스트        |
+| `backgroundColor` | `string`     | -       | 배경색             |
+| `textColor`       | `string`     | -       | 텍스트 색상        |
+| `border`          | `string`     | -       | 테두리 스타일      |
+| `onClick`         | `() => void` | -       | 클릭 핸들러        |
 
 ### Switch
 
@@ -205,9 +256,10 @@ import SocialBar from '@/components/Button/SocialBar';
 | ----------------- | ------------ | ------- | ------------------- |
 | `bookmarkCount`   | `number`     | `0`     | 북마크 수           |
 | `likeCount`       | `number`     | `0`     | 좋아요 수           |
-| `isBookmarked`    | `boolean`    | `false` | 북마크 여부         |
-| `isLiked`         | `boolean`    | `false` | 좋아요 여부         |
+| `isBookmarked`    | `boolean`    | `false` | 북마크 초기값       |
+| `isLiked`         | `boolean`    | `false` | 좋아요 초기값       |
 | `hasEditButton`   | `boolean`    | `false` | 수정 버튼 노출 여부 |
 | `hasDeleteButton` | `boolean`    | `false` | 삭제 버튼 노출 여부 |
 | `onEditClick`     | `() => void` | -       | 수정 클릭 핸들러    |
 | `onDeleteClick`   | `() => void` | -       | 삭제 클릭 핸들러    |
+| `onShareClick`    | `() => void` | -       | 공유 클릭 핸들러    |

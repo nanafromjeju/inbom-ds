@@ -1,0 +1,181 @@
+import Badge from '@/components/Badge/Badge';
+import BadgeGroup from '@/components/Badge/BadgeGroup';
+
+# Badge
+
+인봄에서 인테리어 업체의 특성을 한눈에 보여줄 방법이 필요했어요.
+텍스트만으로는 '인기 업체인지', '전문 자격이 있는지' 빠르게 파악하기 어려웠거든요.
+그래서 아이콘과 텍스트를 묶어서 시각적으로 바로 인식할 수 있는 Badge를 만들었어요.
+
+---
+
+## Badge
+
+Badge 하나가 업체의 특성 하나를 나타내요.
+`backgroundColor`와 `color`를 외부에서 주입받아서
+어떤 배경 위에서도 브랜드 컬러에 맞게 쓸 수 있도록 했어요.
+
+<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+  <Badge
+    icon="/icons/star.svg"
+    title="인기"
+    backgroundColor="#222"
+    color="#fff"
+  />
+  <Badge
+    icon="/icons/checked-primary.svg"
+    title="전문건설업"
+    backgroundColor="#fff"
+    color="#40E0D0"
+  />
+  <Badge
+    icon="/icons/checked-white.svg"
+    title="책임보장"
+    backgroundColor="#40E0D0"
+    color="#fff"
+  />
+</div>
+```tsx // 인기 뱃지
+<Badge
+  icon="/icons/star.svg"
+  title="인기"
+  backgroundColor="#222"
+  color="#fff"
+/>
+
+// 전문건설업 뱃지
+
+<Badge
+  icon="/icons/checked-primary.svg"
+  title="전문건설업"
+  backgroundColor="#fff"
+  color="#40E0D0"
+/>
+
+// 책임보장 뱃지
+
+<Badge
+  icon="/icons/checked-white.svg"
+  title="책임보장"
+  backgroundColor="#40E0D0"
+  color="#fff"
+/>
+```
+
+아이콘 이미지에는 `role="presentation"`과 `aria-hidden="true"`를 적용했어요.
+텍스트가 이미 의미를 전달하고 있어서, 스크린 리더가 이미지를 중복으로 읽지 않도록 처리한 거예요.
+
+---
+
+## BadgeGroup
+
+업체 카드에서 뱃지는 보통 여러 개가 함께 붙어요.
+BadgeGroup은 배열로 받아서 일관된 간격으로 나열해줘요.
+개수에 따라 레이아웃이 자연스럽게 조정되도록 설계했어요.
+
+**3개 (전체)**
+
+<BadgeGroup
+  badges={[
+    {
+      icon: '/icons/star.svg',
+      title: '인기',
+      backgroundColor: '#222',
+      color: '#fff',
+    },
+    {
+      icon: '/icons/checked-primary.svg',
+      title: '전문건설업',
+      backgroundColor: '#fff',
+      color: '#40E0D0',
+    },
+    {
+      icon: '/icons/checked-white.svg',
+      title: '책임보장',
+      backgroundColor: '#40E0D0',
+      color: '#fff',
+    },
+  ]}
+/>
+
+**2개**
+
+<BadgeGroup
+  badges={[
+    {
+      icon: '/icons/star.svg',
+      title: '인기',
+      backgroundColor: '#222',
+      color: '#fff',
+    },
+    {
+      icon: '/icons/checked-white.svg',
+      title: '책임보장',
+      backgroundColor: '#40E0D0',
+      color: '#fff',
+    },
+  ]}
+/>
+
+**1개**
+
+<BadgeGroup
+  badges={[
+    {
+      icon: '/icons/star.svg',
+      title: '인기',
+      backgroundColor: '#222',
+      color: '#fff',
+    },
+  ]}
+/>
+
+**0개 — 아무것도 렌더링되지 않아요**
+
+<BadgeGroup badges={[]} />
+```tsx
+<BadgeGroup
+  badges={[
+    {
+      icon: '/icons/star.svg',
+      title: '인기',
+      backgroundColor: '#222',
+      color: '#fff',
+    },
+    {
+      icon: '/icons/checked-primary.svg',
+      title: '전문건설업',
+      backgroundColor: '#fff',
+      color: '#40E0D0',
+    },
+    {
+      icon: '/icons/checked-white.svg',
+      title: '책임보장',
+      backgroundColor: '#40E0D0',
+      color: '#fff',
+    },
+  ]}
+/>
+```
+
+빈 배열이 들어오면 `null`을 반환해요.
+데이터가 없을 때 빈 영역이 레이아웃을 깨는 걸 막기 위해서예요.
+
+---
+
+## Props
+
+### Badge
+
+| Prop              | Type     | Default | Description        |
+| ----------------- | -------- | ------- | ------------------ |
+| `icon`            | `string` | -       | 아이콘 이미지 경로 |
+| `title`           | `string` | -       | 뱃지 텍스트        |
+| `backgroundColor` | `string` | `#222`  | 배경 색상          |
+| `color`           | `string` | `#fff`  | 텍스트 색상        |
+
+### BadgeGroup
+
+| Prop     | Type           | Default | Description      |
+| -------- | -------------- | ------- | ---------------- |
+| `badges` | `BadgeProps[]` | `[]`    | 뱃지 데이터 배열 |

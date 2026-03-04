@@ -1,0 +1,359 @@
+# Design Tokens
+
+인봄 플랫폼 개발을 시작하기 전, 디자이너와 함께 색상·타이포그래피·간격을 먼저 정의했어요. <br /> <br />
+어떤 색이 어떤 상황에 쓰일지 미리 합의해두지 않으면, 개발하면서 피그마와 코드 사이에 미묘한 불일치가 생기거든요. 비슷해 보이는 회색이 컴포넌트마다 조금씩 다른 값을 쓰거나, 에러 색상이 페이지마다 달라지는 식으로요. <br /> <br />
+그래서 모든 값을 CSS 변수로 중앙에서 관리하는 구조를 잡았어요. 덕분에 디자이너가 색상을 수정하거나, 개발 중에 피그마와 불일치가 발견되더라도 토큰 하나만 바꾸면 전체에 반영됐어요.
+
+## Colors
+
+### Brand
+
+인봄의 메인 컬러예요. 터콰이즈 계열로, 인테리어의 청량하고 신선한 느낌을 담았어요.
+
+<div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+  {[
+    { hex: '#40e0d0', label: 'Primary' },
+    { hex: '#2bc4b4', label: 'Hover' },
+    { hex: '#1fa89a', label: 'Active' },
+    { hex: '#ecfbfb', label: 'Subtle' },
+  ].map(({ hex, label }) => (
+    <div
+      key={hex}
+      style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+    >
+      <div
+        style={{
+          width: '80px',
+          height: '80px',
+          borderRadius: '12px',
+          backgroundColor: hex,
+          border: '1px solid #e9e9e9',
+        }}
+      />
+      <div style={{ fontSize: '13px', fontWeight: 600 }}>{label}</div>
+      <div style={{ fontSize: '12px', color: '#999' }}>{hex}</div>
+    </div>
+  ))}
+</div>
+
+### Neutral
+
+텍스트, 배경, 구분선 등 인터페이스 전반에 사용하는 회색 팔레트예요.
+
+<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+  {[
+    { hex: '#ffffff', label: 'White' },
+    { hex: '#fafafa', label: '100' },
+    { hex: '#f4f5f6', label: '200' },
+    { hex: '#e9e9e9', label: '300' },
+    { hex: '#d3d3d3', label: '400' },
+    { hex: '#cccccc', label: '500' },
+    { hex: '#999999', label: '600' },
+    { hex: '#666666', label: '700' },
+    { hex: '#555555', label: '800' },
+    { hex: '#222222', label: 'Black' },
+  ].map(({ hex, label }) => (
+    <div
+      key={hex}
+      style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
+    >
+      <div
+        style={{
+          width: '56px',
+          height: '56px',
+          borderRadius: '8px',
+          backgroundColor: hex,
+          border: '1px solid #e9e9e9',
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: 600 }}>{label}</div>
+      <div style={{ fontSize: '11px', color: '#999' }}>{hex}</div>
+    </div>
+  ))}
+</div>
+
+### Status
+
+성공, 오류 상태를 나타낼 때 사용해요.
+Notification 컴포넌트에서 `type`에 따라 이 색상이 적용돼요.
+
+<div style={{ display: 'flex', gap: '12px' }}>
+  {[
+    { hex: '#f80303', label: 'Error' },
+    { hex: '#fee6e6', label: 'Error BG' },
+  ].map(({ hex, label }) => (
+    <div
+      key={hex}
+      style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+    >
+      <div
+        style={{
+          width: '80px',
+          height: '80px',
+          borderRadius: '12px',
+          backgroundColor: hex,
+          border: '1px solid #e9e9e9',
+        }}
+      />
+      <div style={{ fontSize: '13px', fontWeight: 600 }}>{label}</div>
+      <div style={{ fontSize: '12px', color: '#999' }}>{hex}</div>
+    </div>
+  ))}
+</div>
+
+## Typography
+
+### Font Family
+
+한국어는 Pretendard, 영문은 Poppins를 사용해요.
+두 폰트 모두 로컬에서 불러와서 네트워크 환경과 관계없이 안정적으로 렌더링돼요.
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    padding: '24px',
+    background: '#fafafa',
+    color: '#222222',
+    borderRadius: '12px',
+  }}
+>
+  <div>
+    <div style={{ fontSize: '13px', color: '#999', marginBottom: '4px' }}>
+      Pretendard — 한국어 기본 폰트
+    </div>
+    <div style={{ fontSize: '24px', fontFamily: 'Pretendard, sans-serif' }}>
+      가나다라마바사 / ABCDEabcde
+    </div>
+  </div>
+  <div>
+    <div style={{ fontSize: '13px', color: '#999', marginBottom: '4px' }}>
+      Poppins — 영문 폰트
+    </div>
+    <div style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>
+      ABCDEabcde / 0123456789
+    </div>
+  </div>
+</div>
+
+### Font Size
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+  {[
+    { label: 'xs', size: '13px', sample: '보조 텍스트, 캡션' },
+    { label: 'sm', size: '15px', sample: '본문 텍스트' },
+    { label: 'md', size: '18px', sample: '강조 본문' },
+    { label: 'lg', size: '20px', sample: '소제목' },
+    { label: 'xl', size: '25px', sample: '중제목' },
+    { label: '2xl', size: '35px', sample: '대제목' },
+    { label: '3xl', size: '40px', sample: '히어로 타이틀' },
+  ].map(({ label, size, sample }) => (
+    <div
+      key={label}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '24px',
+        paddingBottom: '12px',
+        borderBottom: '1px solid #f4f5f6',
+      }}
+    >
+      <div
+        style={{
+          width: '36px',
+          fontSize: '12px',
+          color: '#40e0d0',
+          fontWeight: 600,
+          flexShrink: 0,
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          width: '40px',
+          fontSize: '12px',
+          color: '#999',
+          flexShrink: 0,
+        }}
+      >
+        {size}
+      </div>
+      <div style={{ fontSize: size, lineHeight: 1.3 }}>{sample}</div>
+    </div>
+  ))}
+</div>
+
+### Font Weight
+
+<div
+  style={{
+    display: 'flex',
+    gap: '24px',
+    color: '#222222',
+    flexWrap: 'wrap',
+    padding: '24px',
+    background: '#fafafa',
+    borderRadius: '12px',
+  }}
+>
+  {[
+    { label: 'Regular', weight: 400 },
+    { label: 'Medium', weight: 500 },
+    { label: 'Semibold', weight: 600 },
+    { label: 'Bold', weight: 700 },
+  ].map(({ label, weight }) => (
+    <div
+      key={weight}
+      style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
+    >
+      <div style={{ fontSize: '24px', fontWeight: weight }}>인봄 Inbom</div>
+      <div style={{ fontSize: '12px', color: '#999' }}>
+        {label} / {weight}
+      </div>
+    </div>
+  ))}
+</div>
+
+## Spacing
+
+4px를 기본 단위로 사용해요.
+모든 컴포넌트의 padding, margin, gap은 이 토큰으로 통일했어요.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+  {[
+    { label: 'space-1', size: 4 },
+    { label: 'space-2', size: 8 },
+    { label: 'space-3', size: 12 },
+    { label: 'space-4', size: 16 },
+    { label: 'space-5', size: 20 },
+    { label: 'space-6', size: 24 },
+    { label: 'space-8', size: 32 },
+    { label: 'space-10', size: 40 },
+    { label: 'space-12', size: 48 },
+  ].map(({ label, size }) => (
+    <div
+      key={label}
+      style={{ display: 'flex', alignItems: 'center', gap: '16px' }}
+    >
+      <div
+        style={{
+          width: '80px',
+          fontSize: '12px',
+          color: '#999',
+          fontFamily: 'monospace',
+          flexShrink: 0,
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          width: '36px',
+          fontSize: '12px',
+          color: '#999',
+          flexShrink: 0,
+        }}
+      >
+        {size}px
+      </div>
+      <div
+        style={{
+          width: `${size}px`,
+          height: '16px',
+          backgroundColor: '#40e0d0',
+          borderRadius: '2px',
+          flexShrink: 0,
+        }}
+      />
+    </div>
+  ))}
+</div>
+
+## Border Radius
+
+<div
+  style={{
+    display: 'flex',
+    gap: '24px',
+    flexWrap: 'wrap',
+    alignItems: 'flex-end',
+    padding: '24px 0',
+  }}
+>
+  {[
+    { label: 'sm', value: '4px' },
+    { label: 'md', value: '8px' },
+    { label: 'lg', value: '12px' },
+    { label: 'xl', value: '16px' },
+    { label: 'full', value: '9999px' },
+  ].map(({ label, value }) => (
+    <div
+      key={label}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+      }}
+    >
+      <div
+        style={{
+          width: '64px',
+          height: '64px',
+          backgroundColor: '#ecfbfb',
+          border: '2px solid #40e0d0',
+          borderRadius: value,
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: 600 }}>{label}</div>
+      <div style={{ fontSize: '11px', color: '#999' }}>{value}</div>
+    </div>
+  ))}
+</div>
+
+## Shadow
+
+<div
+  style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', padding: '32px 0' }}
+>
+  {[
+    { label: 'sm', value: '0 1px 3px rgba(0,0,0,0.08)' },
+    { label: 'md', value: '0 4px 12px rgba(0,0,0,0.1)' },
+    { label: 'lg', value: '0 8px 24px rgba(0,0,0,0.12)' },
+  ].map(({ label, value }) => (
+    <div
+      key={label}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '12px',
+      }}
+    >
+      <div
+        style={{
+          width: '80px',
+          height: '80px',
+          backgroundColor: '#fff',
+          borderRadius: '12px',
+          boxShadow: value,
+        }}
+      />
+      <div style={{ fontSize: '12px', fontWeight: 600 }}>{label}</div>
+    </div>
+  ))}
+</div>
+
+## Z-index
+
+레이어 우선순위를 토큰으로 관리해요.
+dropdown이 modal 위에 뜨는 실수를 방지하기 위해 명시적으로 값을 정의했어요.
+
+| Token          | Value | 사용처              |
+| -------------- | ----- | ------------------- |
+| `--z-dropdown` | 100   | Select, 드롭다운    |
+| `--z-modal`    | 200   | Modal, ConfirmModal |
+| `--z-toast`    | 300   | Notification        |
+| `--z-tooltip`  | 400   | Tooltip             |

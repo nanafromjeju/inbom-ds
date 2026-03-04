@@ -1,0 +1,240 @@
+import { useState } from 'react';
+import Modal from '@/components/Modal/Modal';
+import ConfirmModal from '@/components/Modal/ConfirmModal';
+import Notification from '@/components/Modal/Notification';
+import BottomSheet from '@/components/Modal/BottomSheet';
+import Button from '@/components/Button/Button';
+
+# Modal
+
+인봄에서 사용자에게 추가 정보를 보여주거나 확인을 받아야 할 때 사용하는 컴포넌트 모음이에요.
+각각의 상황에 맞게 4가지로 분리해서 관리했어요.
+
+---
+
+## Modal
+
+가장 기본이 되는 모달이에요.
+
+`isOpen`과 `onClose`만 받고, 내부 콘텐츠는 `children`으로 주입받아요.
+어떤 내용이든 담을 수 있도록 의도적으로 비워둔 구조예요.
+오버레이 클릭 시 닫히고, 모달 내부 클릭은 `e.stopPropagation()`으로 이벤트 전파를 막았어요.
+
+export const ModalDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div style={{ padding: '32px', minWidth: '300px' }}>
+          <h3 style={{ marginBottom: '12px', fontWeight: 600 }}>모달 제목</h3>
+          <p style={{ color: '#666', marginBottom: '24px' }}>
+            모달 안에 어떤 내용이든 넣을 수 있어요.
+          </p>
+          <Button onClick={() => setIsOpen(false)}>닫기</Button>
+        </div>
+      </Modal>
+    </>
+  );
+};
+
+<ModalDemo />
+```tsx const [isOpen, setIsOpen] = useState(false)
+
+<Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+  <div>
+    <h3>모달 제목</h3>
+    <p>모달 안에 어떤 내용이든 넣을 수 있어요.</p>
+  </div>
+</Modal>
+```
+
+---
+
+## ConfirmModal
+
+사용자에게 확인/취소를 받아야 할 때 사용해요.
+
+삭제, 탈퇴처럼 되돌리기 어려운 작업 전에 한 번 더 의사를 확인하는 용도예요.
+`confirmText`, `cancelText`를 props로 분리해서
+"예/아니오", "삭제/취소" 등 상황에 맞는 텍스트로 바꿀 수 있어요.
+
+export const ConfirmDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>삭제하기</Button>
+      <ConfirmModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onConfirm={() => {
+          alert('삭제됐어요');
+          setIsOpen(false);
+        }}
+        message="정말로 삭제하시겠습니까?"
+        confirmText="예"
+        cancelText="아니오"
+      />
+    </>
+  );
+};
+
+<ConfirmDemo />
+```tsx const [isOpen, setIsOpen] = useState(false)
+
+<ConfirmModal
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  onConfirm={() => {
+    // 삭제 로직 실행
+    setIsOpen(false);
+  }}
+  message="정말로 삭제하시겠습니까?"
+  confirmText="예"
+  cancelText="아니오"
+/>
+```
+
+---
+
+## Notification
+
+짧은 피드백 메시지를 보여주는 컴포넌트예요.
+
+인봄에서는 저장 완료, 오류 발생 같은 순간에 사용했어요.
+1500ms 후 자동으로 닫히도록 `useEffect` 안에서 `setTimeout`을 관리해요.
+`type`으로 `success`와 `error` 두 가지 상태를 지원하고,
+각각 다른 아이콘과 색상으로 구분돼요.
+
+export const NotificationDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [type, setType] = useState('success');
+  return (
+    <div style={{ display: 'flex', gap: '12px' }}>
+      <Button
+        onClick={() => {
+          setType('success');
+          setIsOpen(true);
+        }}
+      >
+        성공 알림
+      </Button>
+      <Button
+        onClick={() => {
+          setType('error');
+          setIsOpen(true);
+        }}
+      >
+        오류 알림
+      </Button>
+      <Notification
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        message={
+          type === 'success' ? '저장이 완료됐어요.' : '오류가 발생했어요.'
+        }
+        type={type}
+      />
+    </div>
+  );
+};
+
+<NotificationDemo />
+```tsx // 성공
+<Notification
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  message="저장이 완료됐어요."
+  type="success"
+/>
+
+// 오류
+
+<Notification
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+  message="오류가 발생했어요."
+  type="error"
+/>
+```
+
+---
+
+## BottomSheet
+
+모바일에서 아래에서 위로 올라오는 시트 컴포넌트예요.
+
+`framer-motion`의 `AnimatePresence`를 사용해서
+마운트/언마운트 시 슬라이드 애니메이션이 자연스럽게 동작해요.
+열려있는 동안 `body` 스크롤을 막아서 뒤 콘텐츠가 스크롤되는 걸 방지했어요.
+컴포넌트가 언마운트될 때 스크롤이 반드시 복구되도록 cleanup 함수도 넣었어요.
+
+export const BottomSheetDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>바텀시트 열기</Button>
+      <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div style={{ padding: '24px' }}>
+          <h3 style={{ marginBottom: '12px', fontWeight: 600 }}>옵션 선택</h3>
+          <p style={{ color: '#666' }}>
+            바텀시트 안에 어떤 내용이든 넣을 수 있어요.
+          </p>
+        </div>
+      </BottomSheet>
+    </>
+  );
+};
+
+<BottomSheetDemo />
+```tsx const [isOpen, setIsOpen] = useState(false)
+
+<BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
+  <div>
+    <h3>옵션 선택</h3>
+    <p>바텀시트 안에 어떤 내용이든 넣을 수 있어요.</p>
+  </div>
+</BottomSheet>
+```
+
+---
+
+## Props
+
+### Modal
+
+| Prop       | Type         | Default | Description      |
+| ---------- | ------------ | ------- | ---------------- |
+| `isOpen`   | `boolean`    | -       | 모달 열림 여부   |
+| `onClose`  | `() => void` | -       | 닫기 핸들러      |
+| `children` | `ReactNode`  | -       | 모달 내부 콘텐츠 |
+
+### ConfirmModal
+
+| Prop          | Type         | Default    | Description      |
+| ------------- | ------------ | ---------- | ---------------- |
+| `isOpen`      | `boolean`    | -          | 모달 열림 여부   |
+| `onClose`     | `() => void` | -          | 취소 핸들러      |
+| `onConfirm`   | `() => void` | -          | 확인 핸들러      |
+| `message`     | `string`     | -          | 표시할 메시지    |
+| `confirmText` | `string`     | `'예'`     | 확인 버튼 텍스트 |
+| `cancelText`  | `string`     | `'아니오'` | 취소 버튼 텍스트 |
+
+### Notification
+
+| Prop      | Type                   | Default     | Description   |
+| --------- | ---------------------- | ----------- | ------------- |
+| `isOpen`  | `boolean`              | -           | 노출 여부     |
+| `onClose` | `() => void`           | -           | 닫기 핸들러   |
+| `message` | `string`               | -           | 표시할 메시지 |
+| `type`    | `'success' \| 'error'` | `'success'` | 알림 타입     |
+
+### BottomSheet
+
+| Prop       | Type         | Default | Description      |
+| ---------- | ------------ | ------- | ---------------- |
+| `isOpen`   | `boolean`    | -       | 시트 열림 여부   |
+| `onClose`  | `() => void` | -       | 닫기 핸들러      |
+| `children` | `ReactNode`  | -       | 시트 내부 콘텐츠 |
