@@ -1,47 +1,68 @@
 import { useState } from 'react';
 import Modal from '@/components/Modal/Modal';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import SearchInput from '@/components/Input/SearchInput';
 import Notification from '@/components/Modal/Notification';
 import BottomSheet from '@/components/Modal/BottomSheet';
+import Select from '@/components/Input/Select';
 import Button from '@/components/Button/Button';
 
 # Modal
 
-인봄에서 사용자에게 추가 정보를 보여주거나 확인을 받아야 할 때 사용하는 컴포넌트 모음이에요.
+인봄에서 사용자에게 추가 정보를 보여주거나 확인을 받아야 할 때 사용하는 컴포넌트 모음이에요. <br />
 각각의 상황에 맞게 4가지로 분리해서 관리했어요.
-
----
 
 ## Modal
 
 가장 기본이 되는 모달이에요.
 
-`isOpen`과 `onClose`만 받고, 내부 콘텐츠는 `children`으로 주입받아요.
-어떤 내용이든 담을 수 있도록 의도적으로 비워둔 구조예요.
+`isOpen`과 `onClose`만 받고, 내부 콘텐츠는 `children`으로 주입받아요. <br />
+어떤 내용이든 담을 수 있도록 의도적으로 비워둔 구조예요. <br />
 오버레이 클릭 시 닫히고, 모달 내부 클릭은 `e.stopPropagation()`으로 이벤트 전파를 막았어요.
 
 export const ModalDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+      <div
+        style={{
+          maxWidth: '360px',
+        }}
+      >
+        <Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+      </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div style={{ padding: '32px', minWidth: '300px' }}>
-          <h3 style={{ marginBottom: '12px', fontWeight: 600 }}>모달 제목</h3>
-          <p style={{ color: '#666', marginBottom: '24px' }}>
-            모달 안에 어떤 내용이든 넣을 수 있어요.
-          </p>
-          <Button onClick={() => setIsOpen(false)}>닫기</Button>
-        </div>
+        <div style={{ padding: '32px', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <img src="/icons/success-icon.svg" alt="success icon" style={{width: '70px', height: '70px'}}/>
+            <p style={{ fontSize: '20px', color: ' #40E0D0' }}>
+              상세 견적 요청
+            </p>
+            <h3 style={{color: ' #222', marginTop: '20px', marginBottom: '30px'}}>
+              실제 공사 견적에 가까워집니다!
+              <br /> 고객님의 시간과 비용을 아껴드립니다!
+            </h3>
+            <p style={{color: '#999', fontSize: '20px', marginBottom: '50px', marginTop: '0px'}}>
+              예상 완료 시간 <span style={{color: '#222', fontSize: '25px'}}>약 5분</span>
+            </p>
+            <Button>확인</Button>
+          </div>
+
       </Modal>
     </>
-  );
+
+);
 };
 
 <ModalDemo />
+
 ```tsx const [isOpen, setIsOpen] = useState(false)
 
-<Button onClick={() => setIsOpen(true)}>모달 열기</Button>
+      <div
+        style={{
+          maxWidth: '360px',
+        }}
+      >
+<Button onClick={() => setIsOpen(true)}>모달 열기</Button></div>
 
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
   <div>
@@ -51,21 +72,25 @@ export const ModalDemo = () => {
 </Modal>
 ```
 
----
-
 ## ConfirmModal
 
 사용자에게 확인/취소를 받아야 할 때 사용해요.
 
-삭제, 탈퇴처럼 되돌리기 어려운 작업 전에 한 번 더 의사를 확인하는 용도예요.
-`confirmText`, `cancelText`를 props로 분리해서
-"예/아니오", "삭제/취소" 등 상황에 맞는 텍스트로 바꿀 수 있어요.
+삭제, 탈퇴처럼 되돌리기 어려운 작업 전에 한 번 더 의사를 확인하는 용도예요. <br />
+`confirmText`, `cancelText`를 props로 분리해서 <br />
+"저장/취소", "삭제/취소" 등 상황에 맞는 텍스트로 바꿀 수 있어요.
 
 export const ConfirmDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>삭제하기</Button>
+      <div
+        style={{
+          maxWidth: '360px',
+        }}
+      >
+        <Button onClick={() => setIsOpen(true)}>삭제하기</Button>
+      </div>
       <ConfirmModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -97,15 +122,13 @@ export const ConfirmDemo = () => {
 />
 ```
 
----
-
 ## Notification
 
 짧은 피드백 메시지를 보여주는 컴포넌트예요.
 
-인봄에서는 저장 완료, 오류 발생 같은 순간에 사용했어요.
-1500ms 후 자동으로 닫히도록 `useEffect` 안에서 `setTimeout`을 관리해요.
-`type`으로 `success`와 `error` 두 가지 상태를 지원하고,
+인봄에서는 저장 완료, 오류 발생 같은 순간에 사용했어요. <br />
+1500ms 후 자동으로 닫히도록 `useEffect` 안에서 `setTimeout`을 관리해요. <br />
+`type`으로 `success`와 `error` 두 가지 상태를 지원하고, <br />
 각각 다른 아이콘과 색상으로 구분돼요.
 
 export const NotificationDemo = () => {
@@ -160,28 +183,54 @@ export const NotificationDemo = () => {
 />
 ```
 
----
-
 ## BottomSheet
 
 모바일에서 아래에서 위로 올라오는 시트 컴포넌트예요.
 
-`framer-motion`의 `AnimatePresence`를 사용해서
-마운트/언마운트 시 슬라이드 애니메이션이 자연스럽게 동작해요.
-열려있는 동안 `body` 스크롤을 막아서 뒤 콘텐츠가 스크롤되는 걸 방지했어요.
+`framer-motion`의 `AnimatePresence`를 사용해서 <br />
+마운트/언마운트 시 슬라이드 애니메이션이 자연스럽게 동작해요. <br />
+열려있는 동안 `body` 스크롤을 막아서 뒤 콘텐츠가 스크롤되는 걸 방지했어요. <br />
 컴포넌트가 언마운트될 때 스크롤이 반드시 복구되도록 cleanup 함수도 넣었어요.
 
 export const BottomSheetDemo = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>바텀시트 열기</Button>
+      <div
+        style={{
+          maxWidth: '360px',
+        }}
+      >
+        <Button onClick={() => setIsOpen(true)}>바텀시트 열기</Button>
+      </div>
       <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div style={{ padding: '24px' }}>
-          <h3 style={{ marginBottom: '12px', fontWeight: 600 }}>옵션 선택</h3>
-          <p style={{ color: '#666' }}>
-            바텀시트 안에 어떤 내용이든 넣을 수 있어요.
-          </p>
+        <h3
+          style={{
+            color: '#222',
+            marginBottom: '12px',
+            marginTop: '0px',
+            fontWeight: 600,
+          }}
+        >
+          검색 및 필터
+        </h3>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+          }}
+        >
+          <SearchInput placeholder="이름을 입력해주세요" />
+          <Select
+            options={[
+              { label: '서울', value: 'seoul' },
+              { label: '경기', value: 'gyeonggi' },
+              { label: '인천', value: 'incheon' },
+            ]}
+            placeholder="지역을 선택하세요"
+          />
+          <Button>저장</Button>
         </div>
       </BottomSheet>
     </>
@@ -198,8 +247,6 @@ export const BottomSheetDemo = () => {
   </div>
 </BottomSheet>
 ```
-
----
 
 ## Props
 
