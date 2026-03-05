@@ -11,7 +11,7 @@ import SocialBar from '@/components/Button/SocialBar';
   인봄에서 사용자의 행동을 유도하는 모든 곳에 Button 컴포넌트를 사용했어요.{' '}
 
 로그인, 견적 신청, 폼 제출까지 — 클릭 가능한 인터랙션이라면 이 컴포넌트가
-기반이 돼요. <br />
+기반이 돼요. <br className="br" />
 처음엔 단순하게 시작했지만, 플랫폼이 커지면서 다양한 상황에 대응할 수 있도록
 확장해왔어요.
 
@@ -19,23 +19,23 @@ import SocialBar from '@/components/Button/SocialBar';
 
 ## Button
 
-<br />
+<br className="br" />
 
 <FadeIn>
 가장 기본이 되는 버튼이에요.
 
-`width: 100%`로 설계한 건 이유가 있었어요. <br />
-의도적으로 `width: 100%`를 고정하고 패딩으로 내부 여백을 조절해서 완벽한 반응형을 설계했어요. <br />
+`width: 100%`로 설계한 건 이유가 있었어요. <br className="br" />
+의도적으로 `width: 100%`를 고정하고 패딩으로 내부 여백을 조절해서 완벽한 반응형을 설계했어요. <br className="br" />
 특정 px 값이 필요한 경우엔 `div` 태그로 감싸고 `~Wrapper`로 네이밍한 뒤 `max-width`로 너비를 제어했어요.
 
-버튼은 상황에 따라 4가지로 구분해서 사용했어요. <br />
-**Primary Button**은 폼 제출처럼 가장 중요한 주요 액션에, <br />
-**Outline Button**은 인증이나 반드시 클릭이 필요한 상황에, <br />
-**Secondary Button**은 이전으로 돌아가거나 취소처럼 무게감을 낮춰야 할 때, <br />
+버튼은 상황에 따라 4가지로 구분해서 사용했어요.
+**Primary Button**은 폼 제출처럼 가장 중요한 주요 액션에, <br className="br" />
+**Outline Button**은 인증이나 반드시 클릭이 필요한 상황에,
+**Secondary Button**은 이전으로 돌아가거나 취소처럼 무게감을 낮춰야 할 때, <br className="br" />
 **Disabled Button**은 액션이 불가능한 상태를 나타낼 때 사용했어요.
 
 </FadeIn>
-<br />
+<br className="br" />
 <div
   style={{
     display: 'flex',
@@ -71,21 +71,21 @@ import SocialBar from '@/components/Button/SocialBar';
 <Button disabled>Disabled</Button>
 ```
 
-비활성화 상태는 `disabled` prop 하나로 제어해요. <br />
-`pointer-events: none`을 함께 적용해서 실수로 클릭되는 상황도 막았어요. <br />
-단순히 보여주기용 disabled가 아니라, 실제로 이벤트가 차단돼야 했거든요. <br />
+비활성화 상태는 `disabled` prop 하나로 제어해요. <br className="br" />
+`pointer-events: none`을 함께 적용해서 실수로 클릭되는 상황도 막았어요. <br className="br" />
+단순히 보여주기용 disabled가 아니라, 실제로 이벤트가 차단돼야 했거든요. <br className="br" />
 또한 `className` prop을 외부에서 받을 수 있도록 설계해서, 색상이나 스타일 커스텀이 자유롭게 가능해요.
 
 ## SocialButton
 
 소셜 로그인 버튼이에요.
 
-카카오, 네이버, 구글, 이메일 — 각 플랫폼마다 브랜드 가이드라인이 달라요. <br />
+카카오, 네이버, 구글, 이메일 — 각 플랫폼마다 브랜드 가이드라인이 달라요. <br className="br" />
 `backgroundColor`, `textColor`, `border`를 props로 분리한 건
-각 플랫폼 컬러를 외부에서 주입할 수 있도록 하기 위해서였어요. <br />
+각 플랫폼 컬러를 외부에서 주입할 수 있도록 하기 위해서였어요. <br className="br" />
 컴포넌트 내부를 건드리지 않고도 어떤 소셜 버튼이든 만들 수 있죠.
 
-<br />
+<br className="br" />
 
 <div
   style={{
@@ -162,12 +162,12 @@ import SocialBar from '@/components/Button/SocialBar';
 
 두 가지 옵션을 토글하는 컴포넌트예요.
 
-인봄에서는 요금제 페이지의 월간/연간 전환에 사용했어요. <br />
-`value`를 외부에서 받아서 제어하는 **controlled 컴포넌트**로 설계했어요. <br />
-내부에서 상태를 직접 관리하지 않고 부모가 `onChange`로 값을 받아 처리하도록 한 거예요. <br />
+인봄에서는 요금제 페이지의 월간/연간 전환에 사용했어요. <br className="br" />
+`value`를 외부에서 받아서 제어하는 **controlled 컴포넌트**로 설계했어요. <br className="br" />
+내부에서 상태를 직접 관리하지 않고 부모가 `onChange`로 값을 받아 처리하도록 한 거예요. <br className="br" />
 그래야 어떤 맥락에서든 예측 가능하게 동작하거든요.
 
-<br />
+<br className="br" />
 
 <Switch
   leftLabel="Monthly"
@@ -196,13 +196,13 @@ import SocialBar from '@/components/Button/SocialBar';
 
 게시물에 붙는 액션 버튼 모음이에요.
 
-인봄에서는 커뮤니티 게시글과 업체 포트폴리오 상세 페이지에서 사용했어요. <br />
+인봄에서는 커뮤니티 게시글과 업체 포트폴리오 상세 페이지에서 사용했어요. <br className="br" />
 북마크, 좋아요, 공유는 항상 노출되고,
-수정/삭제는 작성자 본인일 때만 보여야 했어요. <br />
-그래서 `hasEditButton`, `hasDeleteButton`으로 조건부 렌더링을 외부에서 제어할 수 있도록 했죠. <br />
+수정/삭제는 작성자 본인일 때만 보여야 했어요. <br className="br" />
+그래서 `hasEditButton`, `hasDeleteButton`으로 조건부 렌더링을 외부에서 제어할 수 있도록 했죠. <br className="br" />
 
-`isBookmarked`, `isLiked`는 초기값으로 받고, <br />
-실제 토글 상태는 컴포넌트 내부에서 `useState`로 관리해요. <br />
+`isBookmarked`, `isLiked`는 초기값으로 받고, <br className="br" />
+실제 토글 상태는 컴포넌트 내부에서 `useState`로 관리해요. <br className="br" />
 서버에서 현재 상태를 받아서 보여주되, 이후 인터랙션은 빠르게 반응하도록 한 거예요.
 
 <div style={{ display: 'flex', alignItems: 'center' }}>

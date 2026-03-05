@@ -7,22 +7,25 @@ import TimePicker from '@/components/Input/TimePicker';
 
 # Input
 
+<br />
+
 <FadeIn>
   인봄에서 사용자에게 정보를 입력받는 모든 곳에서 사용하는 컴포넌트 모음이에요.{' '}
-  <br />
-  회원가입, 견적 신청, 업체 검색까지 — 폼이 들어가는 거의 모든 페이지에서
-  쓰였어요. <br />
+  <br className="br" /> 회원가입, 견적 신청, 업체 검색까지 — 폼이 들어가는 거의
+  모든 페이지에서 쓰였어요. <br className="br" />
   각각의 입력 상황에 맞게 특화된 컴포넌트로 분리해서 관리했어요.
 </FadeIn>
 
 ## Input
 
+<br />
+
 <FadeIn>
 가장 기본이 되는 텍스트 입력 필드예요.
 
-`React.InputHTMLAttributes`를 extends해서 <br />
+`React.InputHTMLAttributes`를 extends해서<br className="br" />
 `value`, `onChange`, `readOnly`, `maxLength` 같은
-네이티브 input 속성을 <br />별도로 선언하지 않아도 모두 그대로 사용할 수 있어요. <br />
+네이티브 input 속성을<br className="br" />별도로 선언하지 않아도 모두 그대로 사용할 수 있어요.<br className="br" />
 `forwardRef`로 감싸서 부모에서 ref를 직접 제어할 수 있도록 했어요.
 
 </FadeIn>
@@ -58,8 +61,8 @@ import TimePicker from '@/components/Input/TimePicker';
 
 비밀번호 입력에 특화된 컴포넌트예요.
 
-눈 모양 아이콘을 클릭하면 비밀번호가 보이고 숨겨지는 토글 기능이 있어요. <br />
-`showPassword` 상태를 내부에서 관리하고, `type`을 `text`와 `password` 사이에서 전환해요. <br />
+눈 모양 아이콘을 클릭하면 비밀번호가 보이고 숨겨지는 토글 기능이 있어요.<br className="br" />
+`showPassword` 상태를 내부에서 관리하고, `type`을 `text`와 `password` 사이에서 전환해요.<br className="br" />
 토글 버튼에는 `aria-label`을 적용해서 스크린 리더 사용자도 현재 상태를 알 수 있도록 했어요.
 
 <br />
@@ -79,9 +82,9 @@ import TimePicker from '@/components/Input/TimePicker';
 
 검색어 입력에 특화된 컴포넌트예요.
 
-input 왼쪽에 검색 아이콘이 고정으로 붙어있어요. <br />
-아이콘을 input 내부가 아닌 wrapper div로 감싸서 배치한 건, <br />
-CSS만으로 아이콘 위치를 안정적으로 잡기 위해서였어요. <br />
+input 왼쪽에 검색 아이콘이 고정으로 붙어있어요.<br className="br" />
+아이콘을 input 내부가 아닌 wrapper div로 감싸서 배치한 건,<br className="br" />
+CSS만으로 아이콘 위치를 안정적으로 잡기 위해서였어요.<br className="br" />
 `forwardRef`를 적용해서 검색 버튼이나 폼에서 ref로 포커스 제어도 가능해요.
 
 <br />
@@ -102,9 +105,9 @@ CSS만으로 아이콘 위치를 안정적으로 잡기 위해서였어요. <br 
 
 드롭다운 선택 컴포넌트예요.
 
-`options` 배열을 받아서 `<option>` 목록을 렌더링해요. <br />
-빈 값이 선택됐을 때는 `null`을 반환하도록 처리했어요. <br />
-실제로 "선택 안 함"과 "빈 문자열"을 구분해야 하는 경우가 있었거든요. <br />
+`options` 배열을 받아서 `<option>` 목록을 렌더링해요.<br className="br" />
+빈 값이 선택됐을 때는 `null`을 반환하도록 처리했어요.<br className="br" />
+실제로 "선택 안 함"과 "빈 문자열"을 구분해야 하는 경우가 있었거든요.<br className="br" />
 커스텀 화살표 아이콘을 wrapper로 덧씌워서 브라우저 기본 스타일을 통일했어요.
 
 <br />
@@ -140,13 +143,13 @@ CSS만으로 아이콘 위치를 안정적으로 잡기 위해서였어요. <br 
 
 날짜 범위를 선택하는 컴포넌트예요.
 
-인봄에서 견적 신청 시 시공 가능 기간을 입력받는 용도로 만들었어요. <br />
-시작일을 먼저 클릭하고, 종료일을 클릭하면 범위가 확정돼요. <br />
-마우스를 올리면 선택될 범위를 미리 보여주는 hover 프리뷰도 구현했어요. <br />
+인봄에서 견적 신청 시 시공 가능 기간을 입력받는 용도로 만들었어요.<br className="br" />
+시작일을 먼저 클릭하고, 종료일을 클릭하면 범위가 확정돼요.<br className="br" />
+마우스를 올리면 선택될 범위를 미리 보여주는 hover 프리뷰도 구현했어요.<br className="br" />
 
-오늘 이전 날짜는 선택할 수 없도록 막았어요. <br />
-과거 날짜로 견적을 신청하는 건 의미가 없었거든요. <br />
-종료일까지 선택이 완료되면 달력이 자동으로 닫혀요. <br />
+오늘 이전 날짜는 선택할 수 없도록 막았어요.<br className="br" />
+과거 날짜로 견적을 신청하는 건 의미가 없었거든요.<br className="br" />
+종료일까지 선택이 완료되면 달력이 자동으로 닫혀요.<br className="br" />
 외부 영역 클릭 시에도 닫히도록 `useEffect`로 이벤트 리스너를 등록했어요.
 
 <br />
@@ -173,9 +176,9 @@ CSS만으로 아이콘 위치를 안정적으로 잡기 위해서였어요. <br 
 
 시간대를 선택하는 컴포넌트예요.
 
-인봄에서 견적 신청 시 방문 가능한 시간대를 선택받는 용도로 사용했어요. <br />
-'아무때나 좋아요'를 선택하면 다른 슬롯이 모두 해제되고, <br />
-반대로 특정 시간대를 선택하면 '아무때나'가 자동으로 해제돼요. <br />
+인봄에서 견적 신청 시 방문 가능한 시간대를 선택받는 용도로 사용했어요.<br className="br" />
+'아무때나 좋아요'를 선택하면 다른 슬롯이 모두 해제되고,<br className="br" />
+반대로 특정 시간대를 선택하면 '아무때나'가 자동으로 해제돼요.<br className="br" />
 두 상태가 동시에 선택되는 게 논리적으로 맞지 않았거든요.
 
 <br />
