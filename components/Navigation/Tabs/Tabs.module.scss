@@ -1,0 +1,154 @@
+.tabsContainer {
+  width: 100%;
+  white-space: nowrap;
+
+  .tabMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e9e9e9;
+
+    .tabItems {
+      display: flex;
+      gap: 50px;
+    }
+
+    .tabItem {
+      padding: 12px 0;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #666666;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: -2px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.active {
+        color: #40e0d0;
+        border-bottom-color: #40e0d0;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    .actionButton {
+      padding: 10px 0;
+      color: #999999;
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      align-items: center;
+      display: flex;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .tabContent {
+    padding: 50px 0 0 0;
+
+    h3 {
+      font-weight: 600;
+    }
+  }
+
+  &.boxed {
+    .tabMenu {
+      border-bottom: 1px solid #cccccc;
+
+      .tabItems {
+        gap: 10px;
+      }
+
+      .tabItem {
+        padding: 16px 32px;
+        border-radius: 0;
+        margin-bottom: -1px;
+        border: 1px solid transparent;
+        background-color: transparent;
+        color: #555555;
+        font-size: 18px;
+
+        &:hover {
+          background-color: transparent;
+          opacity: 0.8;
+        }
+
+        &.active {
+          background-color: #ffffff;
+          color: #40e0d0;
+          border: 1px solid #cccccc;
+          border-bottom: 1px solid #ffffff;
+          z-index: 1;
+          padding: 10px;
+        }
+      }
+    }
+
+    .tabContent {
+      padding: 30px 0 100px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .tabsContainer {
+    .tabContent {
+      padding: 30px 0 0 0;
+    }
+
+    .tabMenu {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      .tabItems {
+        gap: 30px;
+        width: 100%;
+        font-size: 15px;
+
+        .tabItem {
+          flex: 0 0 auto;
+          font-size: 15px;
+          padding: 10px 0;
+        }
+      }
+
+      .actionButton {
+        font-size: 13px;
+        padding: 8px 12px;
+        white-space: nowrap;
+
+        img {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}

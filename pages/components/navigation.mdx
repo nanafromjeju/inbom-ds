@@ -1,0 +1,310 @@
+import { useState } from 'react';
+import Accordion from '@/components/Navigation/Accordion/Accordion';
+import Tabs from '@/components/Navigation/Tabs/Tabs';
+
+# Navigation
+
+<br />
+
+<FadeIn>
+콘텐츠를 접거나 전환하는 인터랙션을 담당하는 컴포넌트 모음이에요.
+
+Accordion은 한 번에 하나의 항목만 열어 사용자의 집중을 유도하고, <br className="br" />
+Tabs는 같은 공간에서 콘텐츠를 전환해 페이지 이동 없이 정보를 탐색할 수 있게 해요.
+
+Accordion은 견적 신청 페이지의 공사 항목 선택에 사용했고, <br className="br" />
+Tabs는 전문업체 목록, 시공사례, 커뮤니티 등 콘텐츠 전환이 필요한 곳에 폭넓게 사용했어요.
+
+</FadeIn>
+
+## Accordion
+
+<br />
+
+<FadeIn>
+항목을 클릭하면 상세 내용이 펼쳐지는 컴포넌트예요.
+
+인봄에서는 견적 신청 페이지의 공사 항목 선택에 사용했어요. <br className="br" />
+"나만의 인테리어"와 "AI 추천 인테리어" 중 하나를 선택하면 <br className="br" />
+해당 항목이 열리고, 이전에 열려있던 항목은 자동으로 닫혀요. <br className="br" />
+
+한 번에 하나만 열리도록 설계한 건 이유가 있었어요. <br className="br" />
+여러 항목이 동시에 열리면 사용자가 어디에 집중해야 할지 모호해지거든요. <br className="br" />
+같은 인덱스를 다시 클릭하면 닫히고, `activeIndex`를 `null`로 초기화해요.
+
+`value` prop으로 외부에서 초기 선택값을 주입할 수 있어요. <br className="br" />
+서버에서 받아온 데이터로 특정 항목을 미리 열어둬야 할 때 유용해요.
+
+</FadeIn>
+
+<br />
+
+export const AccordionDemo = () => {
+  return (
+    <Accordion
+      items={[
+        {
+          title: '나만의 인테리어',
+          description: '실제 공사 견적과 금액 차이 적어요 ▼',
+          sections: [
+            {
+              items: [
+                '정확성',
+                '인테리어 상담시간 단축 (빠른 상담)',
+                '실제 공사금액의 90% 수준',
+                '인테리어 업체 참여도',
+                '고객 근처 모든 업체 견적비교 가능',
+              ],
+            },
+          ],
+        },
+        {
+          title: 'AI 추천 인테리어',
+          description: '실제 공사 견적과 금액 차이 커요 ▲',
+          sections: [
+            {
+              items: [
+                '편리성',
+                '추가 상담, 시간 발생',
+                '실제 공사금액 70% 수준',
+                '인테리어 업체 참여도 낮음',
+                '참여 업체 없을 경우, 접수 반려',
+              ],
+            },
+          ],
+        },
+        {
+          title: '상담사 연결',
+        },
+      ]}
+    />
+  );
+};
+
+<AccordionDemo />
+
+```tsx
+<Accordion
+  items={[
+    {
+      title: '나만의 인테리어',
+      description: '실제 공사 견적과 금액 차이 적어요 ▼',
+      sections: [
+        {
+          items: [
+            '정확성',
+            '인테리어 상담시간 단축 (빠른 상담)',
+            '실제 공사금액의 90% 수준',
+          ],
+        },
+      ],
+    },
+    {
+      title: 'AI 추천 인테리어',
+      description: '실제 공사 견적과 금액 차이 커요 ▲',
+    },
+  ]}
+  onChange={({ planType }) => console.log(planType)}
+  name="planType"
+/>
+```
+
+`sections` 없이 `title`과 `description`만 넘기면 <br className="br" />
+헤더만 표시되는 라이트 버전으로 동작해요. <br className="br" />
+항목마다 구성이 다른 경우에 유연하게 대응할 수 있어요.
+
+## Tabs
+
+<br />
+
+<FadeIn>
+콘텐츠 영역을 탭으로 전환하는 컴포넌트예요.
+
+인봄에서 두 가지 상황에 사용했어요. <br className="br" />
+업체 목록 페이지에서 "인테리어 업체 / 시공 전문가 / 건축자재 업체" 전환에 <br className="br" />
+그리고 업체 상세 페이지에서 "시공사례 / 업체후기 / 기본정보" 전환에 썼어요. <br className="br" />
+
+두 상황의 생김새가 달라서 `variant`로 두 가지 스타일을 지원해요. <br className="br" />
+`default`는 언더라인 방식, `boxed`는 테두리 박스 방식이에요.
+
+`actionButton` prop은 탭 오른쪽에 "작성하기" 같은 버튼을 붙일 때 써요. <br className="br" />
+커뮤니티 게시판처럼 목록 탭과 작성 버튼이 같은 라인에 있어야 하는 경우에 사용했어요.
+
+</FadeIn>
+
+<br />
+
+### Default
+
+언더라인 스타일이에요. 업체 목록처럼 같은 레벨의 카테고리를 전환할 때 사용해요.
+
+<br />
+
+export const TabsDefaultDemo = () => {
+  return (
+    <Tabs
+      tabs={[
+        {
+          label: '인테리어 업체',
+          content: <div>인테리어 업체 컨텐츠예요.</div>,
+        },
+        { label: '시공 전문가', content: <div>시공 전문가 컨텐츠예요.</div> },
+        {
+          label: '건축자재 업체',
+          content: <div>건축자재 업체 컨텐츠예요.</div>,
+        },
+      ]}
+      defaultTab={0}
+      variant="default"
+    />
+  );
+};
+
+<TabsDefaultDemo />
+
+```tsx
+<Tabs
+  tabs={[
+    { label: '인테리어 업체', content: <div>...</div> },
+    { label: '시공 전문가', content: <div>...</div> },
+    { label: '건축자재 업체', content: <div>...</div> },
+  ]}
+  defaultTab={0}
+  variant="default"
+  onTabChange={(index) => console.log(index)}
+/>
+```
+
+### Boxed
+
+테두리 박스 스타일이에요. 상세 페이지처럼 콘텐츠 타입이 명확히 구분될 때 사용해요.
+
+<br />
+
+export const TabsBoxedDemo = () => {
+  return (
+    <Tabs
+      tabs={[
+        { label: '시공사례 (34)', content: <div>시공사례 컨텐츠예요.</div> },
+        { label: '업체후기', content: <div>업체후기 컨텐츠예요.</div> },
+        { label: '기본정보', content: <div>기본정보 컨텐츠예요.</div> },
+      ]}
+      defaultTab={0}
+      variant="boxed"
+    />
+  );
+};
+
+<TabsBoxedDemo />
+
+```tsx
+<Tabs
+  tabs={[
+    { label: '시공사례 (34)', content: <div>...</div> },
+    { label: '업체후기', content: <div>...</div> },
+    { label: '기본정보', content: <div>...</div> },
+  ]}
+  defaultTab={0}
+  variant="boxed"
+/>
+```
+
+### With Action Button
+
+탭 오른쪽에 액션 버튼을 붙일 수 있어요. <br className="br" />
+커뮤니티처럼 목록 탭과 "작성하기" 버튼이 같은 라인에 있어야 할 때 사용했어요.
+
+<br />
+
+export const TabsWithActionDemo = () => {
+  return (
+    <Tabs
+      tabs={[
+        { label: '전체', content: <div>전체 게시글 목록이에요.</div> },
+        { label: '인기', content: <div>인기 게시글 목록이에요.</div> },
+      ]}
+      defaultTab={0}
+      variant="default"
+      actionButton={{
+        label: '작성하기',
+        onClick: () => alert('작성하기 클릭!'),
+      }}
+    />
+  );
+};
+
+<TabsWithActionDemo />
+
+```tsx
+<Tabs
+  tabs={[
+    { label: '전체', content: <div>...</div> },
+    { label: '인기', content: <div>...</div> },
+  ]}
+  defaultTab={0}
+  variant="default"
+  actionButton={{
+    label: '작성하기',
+    onClick: () => alert('작성하기 클릭!'),
+  }}
+/>
+```
+
+모바일에서는 탭이 가로 스크롤로 전환돼요. <br className="br" />
+`overflow-x: auto`와 `scrollbar-width: none`을 적용해서 <br className="br" />
+스크롤바 없이 자연스럽게 넘어가도록 처리했어요.
+
+---
+
+## Props
+
+### Accordion
+
+| Prop           | Type                                      | Default | Description              |
+| -------------- | ----------------------------------------- | ------- | ------------------------ |
+| `items`        | `AccordionItem[]`                         | -       | 아코디언 항목 목록       |
+| `onChange`     | `(value: Record<string, string>) => void` | -       | 항목 선택 시 콜백        |
+| `name`         | `string`                                  | -       | onChange에 넘길 key 이름 |
+| `defaultIndex` | `number \| null`                          | `null`  | 초기 열림 항목 인덱스    |
+| `value`        | `string`                                  | -       | 외부에서 주입하는 선택값 |
+
+#### AccordionItem
+
+| 필드          | Type                 | Description                   |
+| ------------- | -------------------- | ----------------------------- |
+| `title`       | `string`             | 헤더 타이틀                   |
+| `description` | `string`             | 헤더 서브 텍스트 (선택)       |
+| `value`       | `string`             | onChange에 전달되는 값 (선택) |
+| `sections`    | `AccordionSection[]` | 펼쳐질 내용 섹션 목록 (선택)  |
+
+#### AccordionSection
+
+| 필드       | Type       | Description        |
+| ---------- | ---------- | ------------------ |
+| `subtitle` | `string`   | 섹션 소제목 (선택) |
+| `items`    | `string[]` | 리스트 항목        |
+
+### Tabs
+
+| Prop           | Type                      | Default     | Description              |
+| -------------- | ------------------------- | ----------- | ------------------------ |
+| `tabs`         | `Tab[]`                   | -           | 탭 목록                  |
+| `defaultTab`   | `number`                  | `0`         | 초기 활성 탭 인덱스      |
+| `variant`      | `'default' \| 'boxed'`    | `'default'` | 탭 스타일                |
+| `actionButton` | `ActionButton`            | -           | 탭 우측 액션 버튼 (선택) |
+| `onTabChange`  | `(index: number) => void` | -           | 탭 변경 시 콜백          |
+
+#### Tab
+
+| 필드      | Type         | Description                 |
+| --------- | ------------ | --------------------------- |
+| `label`   | `string`     | 탭 텍스트                   |
+| `content` | `ReactNode`  | 탭 콘텐츠                   |
+| `onClick` | `() => void` | 탭 클릭 시 추가 콜백 (선택) |
+
+#### ActionButton
+
+| 필드      | Type         | Description |
+| --------- | ------------ | ----------- |
+| `label`   | `string`     | 버튼 텍스트 |
+| `onClick` | `() => void` | 클릭 핸들러 |

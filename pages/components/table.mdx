@@ -1,0 +1,282 @@
+import { useState } from 'react';
+import PricingTable from '@/components/Table/PricingTable/PricingTable';
+import List from '@/components/Table/List/List';
+import Switch from '@/components/Button/Switch';
+import Tooltip from '@/components/Table/List/Tooltip';
+
+# Table
+
+<br />
+
+<FadeIn>
+  인봄에서 데이터를 표 형태로 보여줘야 하는 두 가지 상황이 있었어요.
+
+요금제를 나란히 비교하는 PricingTable, <br className="br" />
+어드민에서 목록 데이터를 다루는 List, <br className="br" />
+쓰임새가 달라서 구조와 인터페이스를 각각 다르게 설계했어요.
+
+</FadeIn>
+
+## PricingTable
+
+<br />
+
+<FadeIn>
+인봄의 요금제를 비교하는 테이블이에요.
+
+`billingCycle` prop 하나로 월간/연간 요금 데이터를 전환해요. <br className="br" />
+요금제 페이지의 Switch 컴포넌트와 연결해서 사용했어요. <br className="br" />
+
+데스크탑에서는 `<table>` 태그로 행/열을 한눈에 비교할 수 있게 하고, <br className="br" />
+모바일에서는 요금제별 카드 형태로 바꿔서 보여줘요. <br className="br" />
+같은 데이터를 두 가지 방식으로 렌더링하는 거라 <br className="br" />
+`tableData`를 하나로 정의해두고 두 뷰에서 동시에 참조해요.
+
+</FadeIn>
+
+<br />
+
+export const PricingTableDemo = () => {
+  const [billingCycle, setBillingCycle] = useState('M');
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <Switch
+        leftLabel="월간"
+        rightLabel="연간"
+        leftValue="M"
+        rightValue="Y"
+        value={billingCycle}
+        onChange={(v) => setBillingCycle(v)}
+      />
+      <PricingTable billingCycle={billingCycle} />
+    </div>
+  );
+};
+
+<PricingTableDemo />
+
+```tsx
+const [billingCycle, setBillingCycle] = useState<'M' | 'Y'>('M');
+
+<Switch
+  leftLabel="월간"
+  rightLabel="연간"
+  leftValue="M"
+  rightValue="Y"
+  value={billingCycle}
+  onChange={(v) => setBillingCycle(v as 'M' | 'Y')}
+/>
+
+<PricingTable billingCycle={billingCycle} />
+```
+
+Switch와 연결하지 않고 단독으로 쓸 수도 있어요. <br className="br" />
+`billingCycle`의 기본값이 `'M'`이라서 prop 없이 쓰면 월간 요금이 기본으로 표시돼요.
+
+```tsx
+// 월간 고정
+<PricingTable />
+
+// 연간 고정
+<PricingTable billingCycle="Y" />
+```
+
+## List
+
+<br />
+
+<FadeIn>
+어드민에서 목록 데이터를 표시하고 관리하는 컴포넌트예요.
+
+인봄 어드민의 견적 목록, 회원 목록, 업체 목록처럼 <br className="br" />
+반복적인 데이터를 행으로 나열해야 하는 모든 곳에서 사용했어요. <br className="br" />
+
+`headers`에 배열을 넘기는 방식은 두 가지예요. <br className="br" />
+`string[]`으로 넘기면 key와 label이 동일하게 처리되고, <br className="br" />
+`{ key, label }[]`로 넘기면 데이터 key와 화면에 표시할 텍스트를 따로 지정할 수 있어요. <br className="br" />
+API 응답의 key 이름이 한국어로 보여주기 어려울 때 유용했어요.
+
+체크박스, 클릭, 선택 상태 모두 외부에서 제어할 수 있도록 props로 열어뒀어요. <br className="br" />
+전체 선택/해제는 ListHeader가 담당하고, 개별 체크는 ListItem이 담당해요.
+
+</FadeIn>
+
+<br />
+
+export const ListDemo = () => {
+  const headers = [
+    { key: 'name', label: '이름' },
+    { key: 'region', label: '지역' },
+    { key: 'status', label: '상태' },
+    { key: 'date', label: '신청일' },
+  ];
+
+const data = [
+{ id: 1, name: '김인봄', region: '서울 강남구', status: '견적 진행중', date: '2024.01.15' },
+{ id: 2, name: '이인봄', region: '경기 성남시', status: '계약 완료', date: '2024.01.14' },
+{ id: 3, name: '강인봄', region: '서울 마포구', status: '견적 대기', date: '2024.01.13' },
+{ id: 4, name: '최인봄', region: '인천 연수구', status: '견적 진행중', date: '2024.01.12' },
+];
+
+return (
+
+<List
+headers={headers}
+data={data}
+showCheckbox={false}
+onItemClick={(item) => console.log('클릭:', item)}
+/>
+);
+};
+
+<ListDemo />
+
+```tsx
+const headers = [
+  { key: 'name', label: '이름' },
+  { key: 'region', label: '지역' },
+  { key: 'status', label: '상태' },
+  { key: 'date', label: '신청일' },
+];
+
+const data = [
+  {
+    id: 1,
+    name: '김인봄',
+    region: '서울 강남구',
+    status: '견적 진행중',
+    date: '2024.01.15',
+  },
+  {
+    id: 2,
+    name: '이인테리어',
+    region: '경기 성남시',
+    status: '계약 완료',
+    date: '2024.01.14',
+  },
+];
+
+<List
+  headers={headers}
+  data={data}
+  showCheckbox={false}
+  onItemCheck={(item, checked) => console.log(item, checked)}
+  onItemClick={(item, index) => console.log(item, index)}
+/>;
+```
+
+### 체크박스 사용하기
+
+여러 항목을 선택해 일괄 처리가 필요한 경우 `showCheckbox={true}`로 활성화해요. <br className="br" />
+선택된 항목은 `onItemCheck`로 받아서 외부에서 제어할 수 있어요.
+
+```tsx
+<List
+  headers={['이름', '지역', '상태']}
+  data={data}
+  showCheckbox={true}
+  onItemClick={(item) => console.log(item)}
+/>
+```
+
+### 툴팁과 말줄임 처리
+
+특정 컬럼 내용이 길어서 잘릴 수 있을 때 `tooltipColumns`로 인덱스를 지정하면 <br className="br" />
+`truncateLength`를 초과하는 텍스트는 자동으로 잘리고 <br className="br" />
+hover 시 Tooltip으로 전체 내용이 표시돼요.
+
+```tsx
+<List
+  headers={headers}
+  data={data}
+  tooltipColumns={[1, 2]}
+  truncateLength={15}
+/>
+```
+
+## Tooltip
+
+<br />
+
+<FadeIn>
+hover 시 추가 정보를 말풍선으로 보여주는 컴포넌트예요.
+
+List에서 텍스트가 잘렸을 때 전체 내용을 보여주는 용도로 주로 썼어요. <br className="br" />
+`children`을 감싸는 wrapper 방식이라 어떤 요소에든 붙일 수 있어요. <br className="br" />
+
+`text`가 없으면 children을 그대로 반환해서 <br className="br" />
+툴팁이 필요 없는 경우에도 조건 분기 없이 일관되게 쓸 수 있어요. <br className="br" />
+
+위치는 `getBoundingClientRect()`로 컨테이너 위치를 직접 계산해서 <br className="br" />
+부모 요소의 레이아웃과 무관하게 정확하게 잡아요.
+
+</FadeIn>
+
+<br />
+
+export const TooltipDemo = () => {
+  return (
+    <div style={{ display: 'flex', gap: '24px', padding: '40px 0' }}>
+      <Tooltip text="이것은 툴팁이에요">
+        <span style={{ cursor: 'default', color: '#40E0D0', fontWeight: 600 }}>
+          마우스를 올려보세요
+        </span>
+      </Tooltip>
+      <Tooltip text="서울특별시 강남구 테헤란로 123길 45, 인봄빌딩 6층">
+        <span style={{ cursor: 'default', color: '#999' }}>
+          서울특별시 강남구 테헤란...
+        </span>
+      </Tooltip>
+    </div>
+  );
+};
+
+<TooltipDemo />
+
+```tsx
+// 기본
+<Tooltip text="이것은 툴팁이에요">
+  <span>마우스를 올려보세요</span>
+</Tooltip>
+
+// text 없으면 children 그대로 렌더링
+<Tooltip>
+  <span>툴팁 없는 텍스트</span>
+</Tooltip>
+```
+
+---
+
+## Props
+
+### PricingTable
+
+| Prop           | Type         | Default | Description           |
+| -------------- | ------------ | ------- | --------------------- |
+| `billingCycle` | `'M' \| 'Y'` | `'M'`   | 월간/연간 요금제 전환 |
+
+### List
+
+| Prop               | Type                                           | Default | Description             |
+| ------------------ | ---------------------------------------------- | ------- | ----------------------- |
+| `headers`          | `string[] \| { key: string; label: string }[]` | -       | 컬럼 헤더 정의          |
+| `headerLabels`     | `string[]`                                     | `null`  | 헤더 라벨 오버라이드    |
+| `data`             | `Record<string, unknown>[]`                    | -       | 행 데이터 배열          |
+| `showCheckbox`     | `boolean`                                      | `true`  | 체크박스 노출 여부      |
+| `onItemCheck`      | `(item, checked: boolean) => void`             | -       | 체크 핸들러             |
+| `onItemClick`      | `(item, index: number) => void`                | -       | 행 클릭 핸들러          |
+| `selectable`       | `boolean`                                      | `false` | 행 선택 활성화 여부     |
+| `selectedItems`    | `(string \| number)[]`                         | `[]`    | 선택된 항목 id 배열     |
+| `onItemSelect`     | `(item, index: number) => void`                | -       | 행 선택 핸들러          |
+| `columnWidths`     | `string[]`                                     | `null`  | 컬럼별 너비 지정        |
+| `columnClassNames` | `string[]`                                     | `[]`    | 컬럼별 추가 클래스명    |
+| `tooltipColumns`   | `number[]`                                     | `[]`    | 툴팁 적용할 컬럼 인덱스 |
+| `truncateLength`   | `number`                                       | `10`    | 말줄임 기준 글자 수     |
+| `leftAlignColumns` | `number[]`                                     | `[]`    | 좌측 정렬할 컬럼 인덱스 |
+
+### Tooltip
+
+| Prop       | Type        | Default | Description                          |
+| ---------- | ----------- | ------- | ------------------------------------ |
+| `children` | `ReactNode` | -       | 툴팁을 붙일 요소                     |
+| `text`     | `string`    | -       | 툴팁에 표시할 텍스트 (없으면 미표시) |
