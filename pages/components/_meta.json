@@ -2,5 +2,8 @@
   "button": "Button",
   "input": "Input",
   "modal": "Modal",
-  "badge": "Badge"
+  "badge": "Badge",
+  "layout": "Layout",
+  "navigation": "Navigation",
+  "table": "Table"
 }
